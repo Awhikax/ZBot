@@ -1,0 +1,9 @@
+/fcts/**
+!/fcts/language.py
+!/fcts/libs_testing.py
+__*
+.docs
+/start.py
+!.gitignore
+/.vscode/*
+._*
