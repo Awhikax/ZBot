@@ -62,6 +62,7 @@ List of every option
 * leave: Message sent when a member leave your server. Some variables are usable, the same as for the welcome message.
 * gived_roles: List of roles automatically given to members when they join the server. It is necessary that the bot is above the roles in question, and that it has the permission "Manage roles".
 * bot_news: List of channels to which new bot products will be sent. These are the new bugs found as well as the new features added. None by default.
+* modlogs_channel: Channel where all moderation logs (ban, warn, clear...) will be sent.
 * save_roles: Boolean indicating if the bot should restore the roles of a member leaving then rejoining the server. All roles below the ZBot role will be redistributed. :code:`False` by default.
 * poll_channels: List of channels in which the bot will add the reactions 👍 and 👎 to each message
 * enable_xp: Boolean indicating whether the xp system is activated (documentation in preparation). Default is :code:`True`.

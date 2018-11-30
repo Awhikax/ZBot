@@ -96,6 +96,17 @@ It is not possible to cancel a kick. The only way to get a member back is to sen
 
 .. warning:: For the command to succeed, the bot must have "`Kick members <perms.html#kick-members>`_" permissions and be placed higher than the highest role of that member.
 
+
+-------
+Softban
+-------
+
+**Syntax:** :code:`softban <user> [reason]`
+
+This command allows you to expel a member from your server, such as kick. But in addition, it will delete all messages posted by this member during the last 7 days. This is what explains its name: the bot bans a member by asking Discord to delete the messages (which is not possible with a kick), then unban immediately the member.
+
+.. warning:: For this command, the bot needs "`Ban members <perms.html#ban-members>`_" permission, and you need to have a role to use the "`kick <#kick>`_" command
+
 ---
 Ban
 ---
@@ -186,3 +197,24 @@ This option allows you to moderate the entry of your server, with several levels
 .. note:: Note that the levels are cumulative: level 3 will also have the specificities of levels 1 and 2
 
 .. warning:: The bot must have access to "`Kick members <perms.html#kick-members>`_" and "`Ban members <perms.html#ban-members>`_" permissions
+
+
+
+--------------
+Miscellaneaous
+--------------
+
+
+Emoji Manager
+-------------
+
+With this command, you can become the undisputed master of the Emojis and handle them all as you please. You can even do something that no one has ever done before, a beta exclusivity straight out of the Discord labs: restrict the use of certain emojis to certain roles! **YES!** It's possible! Come on, let's not waste any time, here's the list of commands currently available :
+
+* :code:`emoji rename <emoji> <new name>` : renames your emoji, without going through the Discord interface. No more complicated thing
+
+* :code:`emoji restrict <emoji> <roles>` : restrict the use of an emoji to certain roles. Members who do not have this role will simply not see the emoji in the list. Note that there is no need to mention, just put the identifier or the name.
+
+* WIP...
+
+
+..warning:: The bot needs the `Manage Emojis <perms.html#manage-emojis>`_ permission to edit these pretty little pictures. And you, you need Administrator permission to use these commands.

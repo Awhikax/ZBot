@@ -42,7 +42,6 @@ class LangCog:
             #print("New langage:",lang_opt)
         if lang_opt not in self.languages:
             lang_opt = self.bot.cogs['ServerCog'].default_language
-        print(lang_opt)
         if lang_opt == 'lolcat':
             try:
                 return eval("lolcat."+moduleID+"[\""+messageID+"\"]")

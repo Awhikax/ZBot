@@ -43,7 +43,7 @@ Allows the bot to eject a member from the server. Used for: `kick <moderator.htm
 Ban Members
 -----------
 
-Allows the bot to ban or unban a member from the server, as well as to consult the list of banned members. Used for: `ban <moderator.html#ban>`_ , `unban <moderator.html#id4>`_, `banlist <moderator.html#banlist>`_
+Allows the bot to ban or unban a member from the server, as well as to consult the list of banned members. Used for: `ban <moderator.html#ban>`_ , `unban <moderator.html#id4>`_, `banlist <moderator.html#banlist>`_, `softban <moderator.html#softban>`_
 
 
 Create Instant Invite
@@ -67,7 +67,7 @@ Allows the bot to change the nickname of any member hierarchically equal or infe
 Manage Emojis
 -------------
 
-Allows the bot to add, rename or delete emojis from the server. Unused at the moment.
+Allows the bot to add, rename or delete emojis from the server. Used for: `emoji <moderator.html#emoji-manager>`_
 
 
 Manage Webhooks
@@ -113,7 +113,7 @@ Allows the bot to pin or delete any message. Used for: `mute <moderator.html#mut
 Embed Links
 -----------
 
-Allows the bot the bot to send an embed. Used for: `membercount <infos.html#membercount>`_ , `mojang <minecraft.html#mojang>`_ . Required for: `infos <infos.html#info>`_ , `mc <minecraft.html#mc>`_ , `sconfig see <sconfig.html#watch>`_
+Allows the bot the bot to send an embed. Used for: `membercount <infos.html#membercount>`_ , `mojang <minecraft.html#mojang>`_ . Required for: `infos <infos.html#info>`_ , `mc <minecraft.html#mc>`_ , `sconfig see <sconfig.html#watch>`_, `manage rss feeds <rss.html#follow-a-feed>`_
 
 
 Attach Files

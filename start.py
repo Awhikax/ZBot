@@ -7,7 +7,7 @@ t1=time.time()
 
 #Here we import some libs
 count = 0
-for m in ["timeout_decorator","mysql","discord","frmc_lib","requests","re","asyncio","feedparser","datetime","time","importlib","traceback","sys"]:
+for m in ["timeout_decorator","mysql","discord","frmc_lib","requests","re","asyncio","feedparser","datetime","time","importlib","traceback","sys","logging","sympy","psutil"]:
     try:
         exec("import "+m)
         exec("del "+m)
@@ -18,7 +18,7 @@ if count>0:
     raise
 del count
 
-import discord, sys, traceback, asyncio, time
+import discord, sys, traceback, asyncio, time, logging
 
 
 from discord.ext import commands
@@ -51,8 +51,17 @@ initial_extensions = ['fcts.admin',
                       'fcts.moderation',
                       'fcts.cases',
                       'fcts.bvn',
-                      'fcts.emoji'
+                      'fcts.emoji',
+                      'fcts.embeds',
+                      'fcts.events'
   ]
+
+#Seting-up logs
+logger = logging.getLogger('discord')
+logger.setLevel(logging.DEBUG)
+handler = logging.FileHandler(filename='debug.log', encoding='utf-8', mode='a')
+handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+logger.addHandler(handler)
 
 
 # Here we load our extensions(cogs) listed above in [initial_extensions].
@@ -62,7 +71,7 @@ if __name__ == '__main__':
         try:
             client.load_extension(extension)
         except Exception as e:
-            print(f'Failed to load extension {extension}.', file=sys.stderr)
+            print(f'Failed to load extension {extension}', file=sys.stderr)
             traceback.print_exc()
             count += 1
     if count >0:
@@ -100,6 +109,8 @@ async def on_ready():
         await client.change_presence(activity=discord.Game(name="SNAPSHOOT"))
     elif r=='3':
         await client.change_presence(activity=discord.Game(name="Gunivers !"))
+    emb = client.cogs["EmbedCog"].Embed(desc="Bot **{} is launching** !".format(client.user.name),color=8311585).update_timestamp()
+    await client.cogs["EmbedCog"].send([emb])
 
 #@client.event
 async def on_member_join(member):
@@ -110,6 +121,17 @@ async def on_member_join(member):
 async def on_member_remove(member):
     await client.cogs['WelcomerCog'].bye_member(member)
     return
+
+async def on_guild_join(guild):
+    await client.cogs["Events"].on_guild_add(guild)
+    return
+
+async def on_guild_remove(guild):
+    await client.cogs["Events"].on_guild_del(guild)
+    return
+
+async def on_message(msg):
+    await client.cogs["Events"].on_new_message(msg)
 
 from fcts import tokens
 t1=time.time()-t1
@@ -136,6 +158,8 @@ t2=time.time()
 client.add_listener(on_ready)
 client.add_listener(on_member_join)
 client.add_listener(on_member_remove)
-#client.add_listener(on_message)
+client.add_listener(on_message)
+client.add_listener(on_guild_join)
+client.add_listener(on_guild_remove)
 
 client.run(token)

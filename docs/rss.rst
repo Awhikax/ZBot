@@ -42,3 +42,29 @@ See every feed
 If you want to keep an eye on the number of rss/Minecraft feeds registered on your server, this is the command to use. The bot will search in the depths of its incomprehensible files to bring back the list of all the flows, and summarize them for you in a nice embed.
 
 .. warning:: The bot needs "`Embed Links <perms.html#embed-links>`_" permission!
+
+
+--------------
+Mention a role
+--------------
+
+**Syntax:** :code:`rss roles [flow ID]`
+
+This rss flow tracking option allows you to notify a role when a new post arrives. The roles mentioned are different between rss flows, which allows you a greater handling. 
+
+The "flow ID" argument is the identifier of the flow (found with the command `rss list<#see-every-feed>`_). If you do not enter this argument, or if the feed can't be found, the bot will open a menu where you can choose which feed to modify. Then another menu will allow you to choose which roles you want to mention.
+
+.. warning:: For this command too, the bot needs "`Embed Links <perms.html#embed-links>`_" permission!
+
+
+----------------------
+Delete a followed feed
+----------------------
+
+**Syntax:** :code:`rss remove [flow ID]`
+
+With this command, you can stop following an rss/minecraft flow. And it's also very easy to use. Just one command and *poof*, we shut down the machinery.
+
+The "flow ID" argument is the identifier of the flow (found with the command `rss list<#see-every-feed>`_). If you do not enter this argument, or if the feed can't be found, the bot will open a menu where you can choose which feed to modify.
+
+.. warning:: ZBot needs "`Embed Links <perms.html#embed-links>`_" permission to send the selection list!
