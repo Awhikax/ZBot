@@ -4,6 +4,8 @@
 __*
 .docs
 /start.py
+/debug.log
+/logs_check.py
 !.gitignore
 /.vscode/*
 ._*
