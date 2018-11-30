@@ -18,9 +18,9 @@ This command sends a short presentation text of the bot, so that you know it a l
 Ping
 ----
 
-**Syntax:** :code:`ping` or :code:`rep`
+**Syntax:** :code:`ping [ip adress]`
 
-The ping command (alias rep) allows you to get the bot latency. It's useful if you want to check why your command takes too long to be read. The number corresponds with the delay between the moment when your message reaches Discord and the moment when the bot's response is received by the API.
+The ping command allows you to get the bot latency. It's useful if you want to check why your command takes too long to be read. The number corresponds with the delay between the moment when your message reaches Discord and the moment when the bot's response is received by the API.
 
 -------
 Welcome
