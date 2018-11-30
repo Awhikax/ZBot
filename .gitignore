@@ -1,9 +1,8 @@
-/fcts/**
-!/fcts/language.py
-!/fcts/libs_testing.py
+/fcts/cryptage.py
+/fcts/requirements
+/fcts/tokens.py
 __*
 .docs
-/start.py
 /debug.log
 /logs_check.py
 !.gitignore
