@@ -30,6 +30,8 @@ Welcome
 
 This command helps you to define a message sent automatically by ZBot when a member joins or leaves your server (see the `sconfig <sconfig.html>`_ command). You will find how to select the channel, as well as the variables that can be used in the messages.
 
+If you specify an ip address, the bot will not calculate its own ping, but will send a number of packets to the given server in order to calculate its latency. This may take some time, depending on the server bandwidth and the number of packets to send.
+
 ------
 Invite
 ------
