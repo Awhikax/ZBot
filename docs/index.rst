@@ -12,8 +12,6 @@ The `Moderation` section displays every command related to the moderation of a s
 
 .. warning:: The bot and documentation are still in progress. This means that not all the commands in the bot are necessarily present in the doc, and vice versa!
 
-.. note:: Some commands have changed somewhat since the last version of the bot. The list of major changes is `available here <migrating.html>`_.
-
 If you want to invite this bot to a server, `just click here <https://discordapp.com/oauth2/authorize?client_id=486896267788812288&scope=bot&permissions=1007021171>`_!
 
 .. toctree::
