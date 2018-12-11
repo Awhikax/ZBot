@@ -1,4 +1,4 @@
-import discord, sys, traceback
+import discord, sys, traceback, random
 from discord.ext import commands
 
 class ErrorsCog:
@@ -7,6 +7,13 @@ class ErrorsCog:
     def __init__(self,bot):
         self.bot = bot
         self.file = "errors"
+        try:
+            self.translate = self.bot.cogs["LangCog"].tr
+        except:
+            pass
+        
+    async def on_ready(self):
+        self.translate = self.bot.cogs["LangCog"].tr
 
     async def on_cmd_error(self,ctx,error):
         """The event triggered when an error is raised while invoking a command.
@@ -25,6 +32,16 @@ class ErrorsCog:
         
         # Anything in ignored will return and prevent anything happening.
         if isinstance(error, ignored):
+            return
+        elif isinstance(error,commands.CommandOnCooldown):
+            await ctx.send(str(await self.translate(ctx.guild,'errors','cooldown')).format(round(error.retry_after,3)))
+            return
+        elif isinstance(error,commands.BadArgument):
+            args = error.args[0].split('\"')
+            await ctx.send(str(await self.translate(ctx.guild,'errors','badarguments')).format(c=args))
+            return
+        elif isinstance(error,commands.MissingRequiredArgument):
+            await ctx.send(str(await self.translate(ctx.guild,'errors','missingargument')).format(error.param.name,random.choice([':eyes:','',':confused:',':thinking:',''])))
             return
         else:
             await ctx.send("`ERROR:` "+str(error))
