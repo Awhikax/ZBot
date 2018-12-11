@@ -1,4 +1,4 @@
-import discord, datetime, sys, psutil, os, requests, importlib, time
+import discord, datetime, sys, psutil, os, requests, importlib, time, asyncio
 from discord.ext import commands
 from platform   import system as system_name  # Returns the system/OS name
 from subprocess import call   as system_call  # Execute a shell command
@@ -64,27 +64,31 @@ class InfosCog:
             t = (m.created_at - ctx.message.created_at).total_seconds()
             await m.edit(content="Pong ! ("+str(round(t*1000,3))+"ms)")
         else:
-            packages = 70
-            wait = 0.3
+            asyncio.run_coroutine_threadsafe(self.ping_adress(ctx,ip),asyncio.get_event_loop())
+            await ctx.send('test')
+
+    async def ping_adress(self,ctx,ip):
+        packages = 40
+        wait = 0.3
+        try:
             try:
-                try:
-                    m = await ctx.send("Ping...",file=await self.bot.cogs['UtilitiesCog'].find_img('discord-loading.gif'))
-                except:
-                    m = None
-                t1 = time.time()
-                param = '-n' if system_name().lower()=='windows' else '-c'
-                command = ['ping', param, str(packages),'-i',str(wait), ip]
-                result = system_call(command) == 0
-            except Exception as e:
-                await ctx.send("`Error:` {}".format(e))
-                return
-            if result:
-                t = (time.time() - t1 - wait*(packages-1))/(packages)*1000
-                await ctx.send("Pong ! (average of {}ms per 64 byte, sent at {})".format(round(t,2), ip))
-            else:
-                await ctx.send("Unable to ping this adress")
-            if m!=None:
-                await m.delete()
+                m = await ctx.send("Ping...",file=await self.bot.cogs['UtilitiesCog'].find_img('discord-loading.gif'))
+            except:
+                m = None
+            t1 = time.time()
+            param = '-n' if system_name().lower()=='windows' else '-c'
+            command = ['ping', param, str(packages),'-i',str(wait), ip]
+            result = system_call(command) == 0
+        except Exception as e:
+            await ctx.send("`Error:` {}".format(e))
+            return
+        if result:
+            t = (time.time() - t1 - wait*(packages-1))/(packages)*1000
+            await ctx.send("Pong ! (average of {}ms per 64 byte, sent at {})".format(round(t,2), ip))
+        else:
+            await ctx.send("Unable to ping this adress")
+        if m!=None:
+            await m.delete()
 
     @commands.command(name="docs")
     async def display_doc(self,ctx):
