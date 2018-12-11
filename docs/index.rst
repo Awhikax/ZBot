@@ -22,7 +22,7 @@ If you want to invite this bot to a server, `just click here <https://discordapp
    moderator
    infos
    minecraft
-   sconfig
+   config
    rss
    fun
    miscellaneous

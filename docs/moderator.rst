@@ -9,7 +9,7 @@ Among the features in preparation you will find the members' records as well as 
 
 .. note:: Like most of the features of this bot, the Moderation section is constantly being developed. Feel free to help us by offering suggestions, voting for the best ideas or reporting bugs at our `Discord server <https://discord.gg/N55zY88>`_!
 
-.. warning:: Most of these commands are reserved for certain roles only. To allow roles to use a command, see the `sconfig <sconfig.html>`_ command
+.. warning:: Most of these commands are reserved for certain roles only. To allow roles to use a command, see the `config <onfig.html>`_ command
 
 
 ----
@@ -49,7 +49,7 @@ Freeze
 **Syntax:** :code:`freeze (on|off)`
 
 The freeze command is made to completely freeze a chat that has gotten too hot, so that nobody can talk before being cooled. To break the ice, just turn it off.
-People authorized to use the freeze command are the same as the ones who can use `slowmode <#slowmode>`_ (see the `sconfig <sconfig.html>`_ command). 
+People authorized to use the freeze command are the same as the ones who can use `slowmode <#slowmode>`_ (see the `config <config.html>`_ command). 
 
 .. warning:: The bot needs "`Manage messages <perms.html#manage-messages>`_" permission in order to delete messages from chatty members. In addition, members authorized to trigger the freeze are immune to this effect.
 
@@ -127,7 +127,7 @@ Unban
 
 This command allows you to revoke a ban, whether it was made via this bot or not. Just fill in the exact name or the identifier of the member you wish to be unbanned so that the bot can find the member you choose in the list of banned members for the member in question. 
 
-The persons authorized to use this command are the same as for the `ban <#ban>`_ command(see the :code:`sconfig` command). 
+The persons authorized to use this command are the same as for the `ban <#ban>`_ command(see the :code:`config` command). 
 
 .. warning:: For the command to succeed, the bot must have "`Ban members <perms.html#ban-members>`_" permissions.
 

@@ -12,7 +12,7 @@ The list of options continues to grow as development progresses, that's why a we
 Watch
 -----
 
-**Syntax:** :code:`sconfig see [option]`
+**Syntax:** :code:`config see [option]`
 
 The `see` subcommand allows you to see the value of a configuration, with a mini explanatory sentence. If no option is specified, the entire configuration will be displayed in a single message. Note that the bot can suffer a slight latency since this data is stored in an external database.
 
@@ -25,11 +25,11 @@ A detailed list of all options is available `below <#list-of-every-option>`_ .
 Modify
 ------
 
-**Syntax:** :code:`sconfig change <option> <value>`
+**Syntax:** :code:`config change <option> <value>`
 
 This subcommand allows you to modify the value of an option. Just enter the exact name of the option and its value. A validation message will then be sent if the request has been correctly executed. 
 
-If the value contains several objects, such as a list of roles or channels, they must be separated by commas, like this: :code:`sconfig change clear Admin, Moderators, Special role for Special people`.
+If the value contains several objects, such as a list of roles or channels, they must be separated by commas, like this: :code:`config change clear Admin, Moderators, Special role for Special people`.
 
 .. note:: When the value takes the form of roles, for more comfort you are not obliged to mention them: the exact name or the identifier of the role is enough. The same goes for chanels.
 
@@ -38,7 +38,7 @@ If the value contains several objects, such as a list of roles or channels, they
 Delete
 ------
 
-**Syntax:** :code:`sconfig del <option>`
+**Syntax:** :code:`config del <option>`
 
 This subcommand can be useful to reset an option to its default value. By executing this command, the option will be deleted and will take the same value as originally.
 

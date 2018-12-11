@@ -8,9 +8,9 @@ New beginning, new bot, new icon, new security... Many changes have been made si
 
 * New name, new image, etc
 * Increased safety around the token. Now it is encrypted, and hidden outside the code files
-* `Server options <sconfig.html>`_ are saved in a MySQL database, which reduces the chances of data corruption and improves option management
+* `Server options <config.html>`_ are saved in a MySQL database, which reduces the chances of data corruption and improves option management
 * This bot finally has an almost complete translation into English. A French version of the documentation is also planned
-* Commands in the `Fun <fun.html>`_ section can be disabled using `server options <sconfig.html>`_
+* Commands in the `Fun <fun.html>`_ section can be disabled using `server options <config.html>`_
 * The `Minecraft <minecraft.html>`_ game database has grown considerably. Further improvements are expected.
 * The `Slowmode <moderator.html#slowmode>`_ command no longer requires the ability to delete messages. We leave this management to Discord thanks to their new ultra-recent system.
 * All userinfo, roleinfo, serverinfo (and so forth) commands have been grouped together in the `Infos <infos.html#info>`_ command

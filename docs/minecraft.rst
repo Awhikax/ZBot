@@ -8,7 +8,7 @@ Even after diversifying, the bot has not forgotten its origins and remains very 
 
 .. note:: The whole database comes from a single Minecraft site (French, like ZBot): `fr-minecraft.net <https://fr-minecraft.net>`_ . The search engine and the information collected are therefore those appearing on this site. If you observe any error in this database, do not hesitate to contact me so that I relay it to the administrator of the site!
 
-.. warning:: Most of these commands are reserved for certain roles only. To allow roles to use a command, see the `sconfig` command
+.. warning:: Most of these commands are reserved for certain roles only. To allow roles to use a command, see the `config` command
 
 
 ---

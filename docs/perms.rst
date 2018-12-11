@@ -31,7 +31,7 @@ Allows the bot to create and delete roles, or edit the permissions of roles lowe
 Manage Channels
 ---------------
 
-Allows the bot to create, delete and modify channels (create invitations for example). Used for: `membercounter option <sconfig.html#list-of-every-option>`_
+Allows the bot to create, delete and modify channels (create invitations for example). Used for: `membercounter option <config.html#list-of-every-option>`_
 
 
 Kick Members
@@ -113,7 +113,7 @@ Allows the bot to pin or delete any message. Used for: `mute <moderator.html#mut
 Embed Links
 -----------
 
-Allows the bot the bot to send an embed. Used for: `membercount <infos.html#membercount>`_ , `mojang <minecraft.html#mojang>`_ . Required for: `infos <infos.html#info>`_ , `mc <minecraft.html#mc>`_ , `sconfig see <sconfig.html#watch>`_, `manage rss feeds <rss.html#follow-a-feed>`_
+Allows the bot the bot to send an embed. Used for: `membercount <infos.html#membercount>`_ , `mojang <minecraft.html#mojang>`_ . Required for: `infos <infos.html#info>`_ , `mc <minecraft.html#mc>`_ , `config see <config.html#watch>`_, `manage rss feeds <rss.html#follow-a-feed>`_
 
 
 Attach Files
@@ -152,7 +152,7 @@ Voice Permissions
 Connect
 -------
 
-Allows the bot to connect in this voice channel. It is also required to edit this channel. Used for: `membercounter option <sconfig.html#list-of-every-option>`_
+Allows the bot to connect in this voice channel. It is also required to edit this channel. Used for: `membercounter option <config.html#list-of-every-option>`_
 
 Speak
 -----
