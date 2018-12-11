@@ -204,14 +204,14 @@ class ServerCog:
 
                  
 
-    @commands.group(name='sconfig')
+    @commands.group(name='config')
     @commands.guild_only()
     @commands.cooldown(1,2,commands.BucketType.guild)
     async def sconfig_main(self,ctx):
         """Function for setting the bot on a server"""
         await self.is_server_exist(ctx.guild.id,ctx.channel)
         if ctx.invoked_subcommand is None:
-            msg = await self.translate(ctx.guild,"server","sconfig-help")
+            msg = await self.translate(ctx.guild,"server","config-help")
             await ctx.send(msg.format(ctx.guild.owner.name))
         elif ctx.invoked_subcommand not in ["help","see","change","del"]:
             return None
@@ -219,7 +219,7 @@ class ServerCog:
     @sconfig_main.command(name="help")
     async def sconfig_help(self,ctx):
         """Displays a help message"""
-        msg = await self.translate(ctx.guild,"server","sconfig-help")
+        msg = await self.translate(ctx.guild,"server","config-help")
         await ctx.send(msg)
 
     @sconfig_main.command(name="del")

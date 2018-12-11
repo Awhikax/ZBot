@@ -99,7 +99,7 @@ class WelcomerCog:
                     continue
                 role = member.guild.get_role(int(r))
                 if role != None:
-                    await member.add_roles(role,reason="Automated action (sconfig gived_roles)")
+                    await member.add_roles(role,reason="Automated action (config gived_roles)")
         except Exception as e:
             await self.bot.cogs["ErrorsCog"].on_error(e,None)
 

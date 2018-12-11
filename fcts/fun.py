@@ -35,7 +35,7 @@ async def is_fun_enabled(ctx):
     return fun == 1 or fun == True
 
 class FunCog:
-    """Add some fun commands, no obvious use. You can disable this module with the 'enable_fun' option (command 'sconfig')"""
+    """Add some fun commands, no obvious use. You can disable this module with the 'enable_fun' option (command 'config')"""
 
     def __init__(self,bot):
         self.bot = bot
@@ -509,7 +509,7 @@ You can specify a verification limit by adding a number in argument"""
             return
         try:
             channels = await self.bot.cogs['ServerCog'].find_staff(message.guild.id,'poll_channels')
-            if channels==None:
+            if channels==None or len(channels)==0:
                 return
             if str(message.channel.id) in channels.split(';') and not message.author.bot:
                 try:
