@@ -25,7 +25,7 @@ author = 'ZRunner'
 # The short X.Y version
 version = '3.2'
 # The full version, including alpha/beta/rc tags
-release = '3.2.2'
+release = '3.2.3'
 
 
 # Example configuration for intersphinx: refer to the Python standard library.
