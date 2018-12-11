@@ -2,7 +2,8 @@ import discord
 from discord.ext import commands
 
 
-import time, importlib, sys, traceback, datetime, os, shutil, asyncio, inspect, typing
+import time, importlib, sys, traceback, datetime, os, shutil, asyncio, inspect, typing, io, textwrap
+from contextlib import redirect_stdout
 from fcts import  reloads
 importlib.reload(reloads)
 
@@ -19,6 +20,14 @@ async def check_admin(ctx):
             user = user.id
         return user in reloads.admins_id
 
+def cleanup_code(content):
+    """Automatically removes code blocks from the code."""
+    # remove ```py\n```
+    if content.startswith('```') and content.endswith('```'):
+        return '\n'.join(content.split('\n')[1:-1])
+    # remove `foo`
+    return content.strip('` \n')
+
 class AdminCog:
     """Here are listed all commands related to the internal administration of the bot. Most of them are not accessible to users, but only to ZBot administrators."""
         
@@ -32,6 +41,7 @@ class AdminCog:
             self.utilities = self.bot.cogs["UtilitiesCog"]
         except:
             pass
+        self._last_result = None
         
     async def on_ready(self):
         self.translate = self.bot.cogs["LangCog"].tr
@@ -157,7 +167,7 @@ class AdminCog:
             await self.bot.cogs['ErrorsCog'].on_error(e,None)
         return msg
 
-    @main_msg.command(name="sconfig")
+    @main_msg.command(name="config")
     @commands.check(check_admin)
     async def admin_sconfig_see(self,ctx,*,server):
         """Affiche les options d'un serveur"""
@@ -336,6 +346,55 @@ class AdminCog:
             await ctx.send(await self.translate(ctx.guild.id,"admin","change_game-0"))
         await ctx.message.delete()
     
+
+    @commands.command(name='eval')
+    @commands.check(check_admin)
+    async def _eval(self, ctx, *, body: str):
+        """Evaluates a code
+        Credits: Rapptz (https://github.com/Rapptz/RoboDanny/blob/rewrite/cogs/admin.py)"""
+        env = {
+            'bot': self.bot,
+            'ctx': ctx,
+            'channel': ctx.channel,
+            'author': ctx.author,
+            'guild': ctx.guild,
+            'message': ctx.message,
+            '_': self._last_result
+        }
+        env.update(globals())
+
+        body = cleanup_code(body)
+        stdout = io.StringIO()
+        try:
+            to_compile = f'async def func():\n{textwrap.indent(body, "  ")}'
+        except Exception as e:
+            await self.bot.cogs['ErrorsCog'].on_error(e,ctx)
+            return
+        try:
+            exec(to_compile, env)
+        except Exception as e:
+            return await ctx.send(f'```py\n{e.__class__.__name__}: {e}\n```')
+
+        func = env['func']
+        try:
+            with redirect_stdout(stdout):
+                ret = await func()
+        except Exception as e:
+            value = stdout.getvalue()
+            await ctx.send(f'```py\n{value}{traceback.format_exc()}\n```')
+        else:
+            value = stdout.getvalue()
+            try:
+                await ctx.message.add_reaction('\u2705')
+            except:
+                pass
+
+            if ret is None:
+                if value:
+                    await ctx.send(f'```py\n{value}\n```')
+            else:
+                self._last_result = ret
+                await ctx.send(f'```py\n{value}{ret}\n```')
     
     async def backup_auto(self,ctx=None):
         """Crée une backup du code"""
