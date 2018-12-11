@@ -27,8 +27,8 @@ Dis modul is usd 2 configur a' automatic mesage each tiem membr enters or exits 
 
 __** Configuration**__
 
-`1-` To configure teh channel wer thees mesagez 're writtn, entr `!sconfig change welcome_channel` followd by teh channl ID (rite clik -> "Copy ID" 4 computer, or keep pressin on teh channel -> "Copy ID" 4 phone, but you w'll nede to have enabld teh developer mode to get dis optn).
-`2-` To configure a msg, entr `!sconfig change <welcome|leave> <message>`. 4 dis mesage u can uz somm variabl':
+`1-` To configure teh channel wer thees mesagez 're writtn, entr `!config change welcome_channel` followd by teh channl ID (rite clik -> "Copy ID" 4 computer, or keep pressin on teh channel -> "Copy ID" 4 phone, but you w'll nede to have enabld teh developer mode to get dis optn).
+`2-` To configure a msg, entr `!config change <welcome|leave> <message>`. 4 dis mesage u can uz somm variabl':
  - `{user}` mentionz teh member
  - `{server}` displayz the servr nayme
  - `{owner}` displayz teh servr ownr nam
@@ -76,7 +76,7 @@ fun={"count-0":"Countng in progrez...",
 infos={"text-0":"""Hello! I'm {0} !
 
 I'm a bot that allows you to do a lot of things: moderation, mini-games, an xp system, statistics and many other super useful commands (and totally pointless ones)! 
-You can start by typing `!help` in this chat to see the list of available commands, then `!sconfig see` will let you see the configuration options (a website is in preparation). 
+You can start by typing `!help` in this chat to see the list of available commands, then `!config see` will let you see the configuration options (a website is in preparation). 
 
 For helping me in the creation of the bot, my owner and I would like to thank reddemoon for his support during the various crises, Aragorn1202 for all his ideas and sentences full of good sense, Adri526 for all these beautiful logos, emojis and profile pics, and Pilotnick54 to review and correct my English!
 
@@ -237,9 +237,9 @@ Link : {link}""",
 "no-feed":"Oops, you don't have any rss feeds to manage!"
 }
 
-server={"sconfig-help": "Dis cmd is mainly usd 2 configur ur srver. By doin `!sconfig see [option]` u will get \
-overview ov teh currnt configuraishun, and supr cool servr masters can enter `!sconfig change <option> role1, role2, role3...` \
-to modify configuraishun, or `!sconfig del <option>` 2 reset teh option (`!sconfig change <option>` works same).",
+server={"config-help": "Dis cmd is mainly usd 2 configur ur srver. By doin `!config see [option]` u will get \
+overview ov teh currnt configuraishun, and supr cool servr masters can enter `!config change <option> role1, role2, role3...` \
+to modify configuraishun, or `!config del <option>` 2 reset teh option (`!config change <option>` works same).",
         "change-0": "Dis option doz not exist :confused:",
         "change-1": "Oops, an internal error occurrd...\nBut doan worry, we'r on teh place: http://asset-5.soupcdn.com/asset/3247/3576_5092_600.jpeg",
         "change-2": "The '{}' opshun value haz been deleted",
@@ -259,7 +259,7 @@ to modify configuraishun, or `!sconfig del <option>` 2 reset teh option (`!sconf
         "change-raid":"Teh anti-rayd security lvl iz naw set 2 **{}** ({})",
         "change-emojis":"Teh emojiz 4 the opshun '{}' are naw {}",
         "new_server": "Ur server haz just been written for da furst time in r database. Congratulashuns :tada:",
-        "see-0":"Enter `!sconfig help` 4 more details",
+        "see-0":"Enter `!config help` 4 more details",
         "see-1":"{} server configurashun",
         "change-prefix-1":"Dis prefix iz too long 2 be used!",
         "wrong-prefix":"Oooops, it seemz dis prefix is no valid :thinking: If teh problem persists, plz choose a' other one",

@@ -36,8 +36,8 @@ Ce module vous sert à configurer un message automatique à chaque fois qu'un me
 
 __**La configuration**__
 
-`1-` Pour configurer le salon où ces messages s'écrivent, entrez `!sconfig change welcome_channel` suivi de l'ID du salon (clic droit -> "Copier l'identifiant" pour ordinateur, ou rester appuyez sur le salon -> "Copier l'identifiant" pour téléphone, mais il vous faudras avoir activer le mode dévellopeur pour obtenir cette option).
-`2-` Pour configurer un message, entrez `!sconfig change <welcome|leave> <message>`. Pour ce message vous pouvez utiliser les variables suivantes :
+`1-` Pour configurer le salon où ces messages s'écrivent, entrez `!config change welcome_channel` suivi de l'ID du salon (clic droit -> "Copier l'identifiant" pour ordinateur, ou rester appuyez sur le salon -> "Copier l'identifiant" pour téléphone, mais il vous faudras avoir activer le mode dévellopeur pour obtenir cette option).
+`2-` Pour configurer un message, entrez `!config change <welcome|leave> <message>`. Pour ce message vous pouvez utiliser les variables suivantes :
  - `{user}` mentionne le membre
  - `{server}` affiche le nom du serveur
  - `{owner}` affiche le nom du propriétaire du serveur
@@ -49,6 +49,10 @@ cases={"no-user":"Impossible de trouver cet utilisateur",
     "reason-edited":"La raison du casier n°{} a bien été modifiée !",
     "deleted":"Le casier n°{} a bien été supprimé !",
     "cases-0":"{} casiers trouvés : ({}-{})"}
+
+errors={"cooldown":"Vous êtes en cooldown pour cette commande. Veuillez attendre encore {} secondes...",
+"badarguments":"Oups, impossible de convertir le paramètre `{c[3]}` en type \"{c[1]}\" :confused:",
+"missingargument":"Oups, il manque l'argument \"{}\" {}"}
 
 find={"user-0":"Nom : {}\nID : {}",
 "user-1":"Nom : {}\nID : {}\nServeurs : {}",
@@ -86,7 +90,7 @@ fun={"count-0":"Comptage en cours...",
 infos={"text-0":"""Bonjour ! Moi c'est {0} !
 
 Je suis un bot qui permet de faire *beaucoup* de choses : de la modération, des mini-jeux, un système d'xp, des statistiques et plein d'autres commandes plus ou moins utiles ! 
-Vous pouvez commencer par taper `!help` dans ce tchat pour voir la liste des commandes disponibles, puis `!sconfig see` vous permettra de voir les options de configuration (un site web est en préparation). 
+Vous pouvez commencer par taper `!help` dans ce tchat pour voir la liste des commandes disponibles, puis `!config see` vous permettra de voir les options de configuration (un site web est en préparation). 
 
 Pour m'avoir aidé dans la création du bot, mon propriétaire et moi souhaitons remercier reddemoon pour son soutien apporté lors des différentes crises, Aragorn1202 pour toutes ses idées et ses phrases pleines de bon sens, Adri526 pour tous ces magnifiques logos, émojis et images de profil, et Pilotnick54 pour relire et corriger mon anglais !
 
@@ -299,9 +303,9 @@ Lien : {link}""",
 "delete-success":"Le flux a été supprimé avec succès !"
 }
 
-server={"sconfig-help":"Cette commande sert principalement à configurer votre serveur. En faisant `!sconfig see [option]` vous obtiendrez l'aperçu des configurations actuelles, \
-et les administrateurs du serveur peuvent entrer `!sconfig change <option> role1, role2, role3...` pour modifier une configuration, ou `!sconfig del <option>` pour réinitialiser \
-l'option (`!sconfig change <option> del` fonctionne de même).",
+server={"config-help":"Cette commande sert principalement à configurer votre serveur. En faisant `!config see [option]` vous obtiendrez l'aperçu des configurations actuelles, \
+et les administrateurs du serveur peuvent entrer `!config change <option> role1, role2, role3...` pour modifier une configuration, ou `!config del <option>` pour réinitialiser \
+l'option (`!config change <option> del` fonctionne de même).",
         "change-0":"Cette option n'existe pas :confused:",
         "change-1":"Oups, une erreur interne est survenue...",
         "change-2":"La valeur de l'option '{}' a bien été effacée",
@@ -321,7 +325,7 @@ l'option (`!sconfig change <option> del` fonctionne de même).",
         "change-raid":"Le niveau de sécurité anti-raid est maintenant défini à **{}** ({})",
         "change-emojis":"Les émojis pour l'option '{}' sont maintenant {}",
         "new_server":"Votre serveur vient d'être enregistré pour la première fois dans notre base de donnée. Félicitations :tada:",
-        "see-0":"Entrez `!sconfig help` pour plus de détails",
+        "see-0":"Entrez `!config help` pour plus de détails",
         "see-1":"Configuration du serveur {}",
         "change-prefix-1":"Ce préfixe est trop long pour être utilisé !",
         "wrong-prefix":"Oups, il semble que ce préfixe est invalide :thinking: Si le problème persiste, veuillez en choisir un autre",

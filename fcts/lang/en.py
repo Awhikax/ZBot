@@ -35,8 +35,8 @@ This module is used to configure an automatic message each time a member enters 
 
 __** Configuration**__
 
-`1-` To configure the chat room where these messages are written, enter `!sconfig change welcome_channel` followed by the channel ID (right click -> "Copy ID" for computer, or keep pressing on the channel -> "Copy ID" for phone, but you will need to have enabled the developer mode to get this option).
-`2-` To configure a message, enter `!sconfig change <welcome|leave> <message>`. For this message you can use some variables:
+`1-` To configure the chat room where these messages are written, enter `!config change welcome_channel` followed by the channel ID (right click -> "Copy ID" for computer, or keep pressing on the channel -> "Copy ID" for phone, but you will need to have enabled the developer mode to get this option).
+`2-` To configure a message, enter `!config change <welcome|leave> <message>`. For this message you can use some variables:
  - `{user}` mentions the member
  - `{server}` displays the server name
  - `{owner}` displays the server owner name
@@ -48,6 +48,10 @@ cases={"no-user":"Unable to find this user :eyes:",
     "reason-edited":"The reason for case #{} has been changed!",
     "deleted":"The case #{} has been deleted!",
     "cases-0":"{} cases found: ({}-{})"}
+
+errors={"cooldown":"You are on cooldown for this command :confused: Please wait {} mode seconds...",
+"badarguments":"Oops, unable to convert the `{c[3]}` parameter to \"{c[1]}\" type :confused:",
+"missingargument":"Oops, the argument \"{}\" is missing {}"}
 
 find={"user-0":"name: {}\nID: {}",
 "user-1":"Name: {}\nID: {}\nServers: {}",
@@ -85,7 +89,7 @@ fun={"count-0":"Counting in progress...",
 infos={"text-0":"""Hello! I'm {0} !
 
 I'm a bot that allows you to do a lot of things: moderation, mini-games, an xp system, statistics and many other super useful commands (and totally pointless ones)! 
-You can start by typing `!help` in this chat to see the list of available commands, then `!sconfig see` will let you see the configuration options (a website is in preparation). 
+You can start by typing `!help` in this chat to see the list of available commands, then `!config see` will let you see the configuration options (a website is in preparation). 
 
 For helping me in the creation of the bot, my owner and I would like to thank reddemoon for his support during the various crises, Aragorn1202 for all his ideas and sentences full of good sense, Adri526 for all these beautiful logos, emojis and profile pics, and Pilotnick54 to review and correct my English!
 
@@ -273,9 +277,9 @@ Link : {link}""",
 "delete-success":"The flow has been successfully deleted!"
 }
 
-server={"sconfig-help": "This command is mainly used to configure your server. By doing `!sconfig see [option]` you will get \
-an overview of the current configurations, and server administrators can enter `!sconfig change <option> role1, role2, role3...` \
-to modify a configuration, or `!sconfig del <option>` to reset the option (`!sconfig change <option>` works the same way).",
+server={"config-help": "This command is mainly used to configure your server. By doing `!config see [option]` you will get \
+an overview of the current configurations, and server administrators can enter `!config change <option> role1, role2, role3...` \
+to modify a configuration, or `!config del <option>` to reset the option (`!config change <option>` works the same way).",
         "change-0": "This option does not exist :confused:",
         "change-1": "Oops, an internal error occurred...",
         "change-2": "The '{}' option value has been deleted",
@@ -295,7 +299,7 @@ to modify a configuration, or `!sconfig del <option>` to reset the option (`!sco
         "change-raid":"The anti-raid security level is now set to **{}** ({})",
         "change-emojis":"The emotions for the option '{}' are now {}",
         "new_server": "Your server has just been registered for the first time in our database. Congratulations :tada:",
-        "see-0":"Enter `!sconfig help` for more details",
+        "see-0":"Enter `!config help` for more details",
         "see-1":"{} server configuration",
         "change-prefix-1":"This prefix is too long to be used!",
         "wrong-prefix":"Oops, it seems this prefix is invalid :thinking: If the problem persists, please choose another one",
