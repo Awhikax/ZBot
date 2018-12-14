@@ -69,6 +69,7 @@ class WelcomerCog:
             return
         c = False
         level = int(level)
+        can_ban = member.guild.get_member(self.bot.user.id).guild_permissions.ban_members
         if level == 0:
             return c
         if level >= 1:
@@ -79,13 +80,19 @@ class WelcomerCog:
             if (datetime.datetime.now() - member.created_at).seconds <= 1*60:
                 await self.kick(member,"Automod (too young account)")
                 c = True
-        if level >= 3 and member.guild.channels[0].permissions_for(member.guild.me).ban_members:
+        if level >= 3 and can_ban:
             if await self.bot.cogs['UtilitiesCog'].check_discord_invite(member.name) != None:
                 await self.ban(member,"Automod (Discord invite)")
                 c = True
-        if level >= 4:
             if (datetime.datetime.now() - member.created_at).seconds <= 5*60:
                 await self.kick(member,"Automod (too young account)")
+                c = True
+        if level >= 4:
+            if (datetime.datetime.now() - member.created_at).seconds <= 10*60:
+                await self.kick(member,"Automod (too young account)")
+                c = True
+            if (datetime.datetime.now() - member.created_at).seconds <= 3*60 and can_ban:
+                await self.ban(member,"Automod (too young account)")
                 c = True
         return c
 
