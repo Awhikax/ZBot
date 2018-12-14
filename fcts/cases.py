@@ -98,8 +98,6 @@ class CasesCog:
     async def get_case(self,columns=[],criters=["1"],relation="AND"):
         """return every cases"""
         if type(columns)!=list or type(criters)!=list:
-            print(type(columns),columns)
-            print(type(criters),criters)
             raise ValueError
         cnx = self.connect()
         cursor = cnx.cursor(dictionary=True)

@@ -678,6 +678,9 @@ class ServerCog:
                 except:
                     pass
             try:
+                if not ctx.channel.permissions_for(ctx.guild.me).embed_links:
+                    await ctx.send(await self.translate(ctx.guild.id,"mc","cant-embed"))
+                    return
                 embed = discord.Embed(title=str(await self.translate(ctx.guild.id,"server","opt_title")).format(option,ctx.guild.name), colour=self.embed_color, description=r, timestamp=ctx.message.created_at)
                 #embed.set_footer(text="Requested by {}".format(ctx.author.display_name), icon_url=ctx.author.avatar_url_as(format='png',size=512))
                 embed = await self.bot.cogs['UtilitiesCog'].create_footer(embed,ctx.author)
@@ -703,7 +706,7 @@ class ServerCog:
             try:
                 await ch.edit(name=text,reason="Automated action")
             except Exception as e:
-                await self.bot.cogs['UtilitiesCog'].print2(e)
+                await self.bot.cogs['UtilitiesCog'].print2("[UpdateMemberChannel] "+str(e))
     
     
 def setup(bot):

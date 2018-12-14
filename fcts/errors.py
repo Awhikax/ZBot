@@ -43,7 +43,7 @@ class ErrorsCog:
                 if r == None:
                     r = re.search(r'Member \"([^\"]+)\" not found',str(error))
                     if r == None:
-                        print(error)
+                        print('errors -',error)
                         return
                     await ctx.send(str(await self.translate(ctx.guild,'errors','membernotfound')).format(r.group(1)))
                 else:    
@@ -83,7 +83,7 @@ Traceback (most recent call last):
             else:
                 await salon.send(ctx.guild.name+" | "+ctx.channel.name+"\n"+msg)
         except Exception as e:
-            print(e)
+            print("[on_error]",e)
         try:
             if sys.exc_info()[0] != None:
                 S = str(sys.exc_info()[0]).split("<class '")[1].split("'>")[0]+' : '+str(sys.exc_info()[1])
@@ -93,7 +93,7 @@ Traceback (most recent call last):
 {T} {S}
 """.format(T=" ".join(traceback.format_tb(sys.exc_info()[2])),S=S))
         except Exception as e:
-            print(e)
+            print("[on_error]",e)
 
 
 def setup(bot):
