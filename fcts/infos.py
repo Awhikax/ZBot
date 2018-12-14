@@ -10,6 +10,15 @@ importlib.reload(conf)
 
 bot_version = conf.release
 
+async def is_support_staff(ctx):
+    server = ctx.bot.get_guild(356067272730607628)
+    if server != None:
+        member = server.get_member(ctx.author.id)
+        role = server.get_role(412340503229497361)
+        if member != None and role != None:
+            return role in member.roles
+    return False
+
 class InfosCog:
     """Here you will find various useful commands to get information about ZBot."""
 
@@ -27,7 +36,8 @@ class InfosCog:
         self.translate = self.bot.cogs["LangCog"].tr
         self.utilities = self.bot.cogs["UtilitiesCog"]
         self.timecog = self.bot.cogs["TimeCog"]
-        
+    
+
     @commands.command(name="stats")
     async def stats(self,ctx):
         """Display some statistics about the bot"""
@@ -402,6 +412,7 @@ Available types: member, role, user, emoji, channel, guild, invite, category"""
 
 
     @commands.group(name="find")
+    @commands.check(is_support_staff)
     async def find_main(self,ctx):
         """Same as info, but in a lighter version"""
         if ctx.invoked_subcommand is None:
