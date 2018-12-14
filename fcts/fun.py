@@ -346,6 +346,9 @@ You can specify a verification limit by adding a number in argument"""
             except:
                 try:
                     await msg.add_reaction(r)
+                except discord.errors.HTTPException:
+                    await ctx.send(await self.translate(ctx.guild,'fun','no-emoji'))
+                    return
                 except Exception as e:
                     await self.bot.cogs["ErrorsCog"].on_error(e,ctx)
                     continue
