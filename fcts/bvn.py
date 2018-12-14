@@ -23,6 +23,7 @@ class WelcomerCog:
         await self.bot.cogs["ServerCog"].update_memberChannel(member.guild)
         await self.send_msg(member,"leave")
         await self.send_log(member,"leave")
+        await self.bot.cogs['Events'].check_user_left(member)
 
 
     async def send_msg(self,member,Type):

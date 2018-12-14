@@ -13,6 +13,7 @@ class Events:
         "slowmode":5671364,
         "clear":16312092,
         "warn":9131818}
+        self.points = 0
     
     async def on_guild_add(self,guild):
         """Called when the bot joins a guild"""
@@ -79,6 +80,24 @@ class Events:
             await channel.send(embed=emb.discord_embed())
         except:
             pass
+
+
+    async def check_user_left(self,member):
+        """Vérifie si un joueur a été banni ou kick par ZBot"""
+        t = None
+        print("lol")
+        try:
+            async for entry in member.guild.audit_logs(user=member.guild.me,limit=100):
+                if entry.created_at < datetime.datetime.utcnow()-datetime.timedelta(seconds=60):
+                    break
+                if entry.action==discord.AuditLogAction.kick and entry.target==member:
+                    t = "kick"
+                elif entry.action==discord.AuditLogAction.ban and entry.target==member:
+                    t = "ban"
+        except:
+            print("events.py - unable to check logs for guild",member.guild.id)
+            return
+        print(t)
 
 
 def setup(bot):
