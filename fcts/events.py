@@ -14,16 +14,21 @@ class Events:
         "clear":16312092,
         "warn":9131818}
         self.points = 0
+        self.table = {'kick':3,
+            'ban':7,
+            'invite':22,
+            'emoji':30,
+            'channel':45,
+            'role':60,
+            'guild':75}
     
     async def on_guild_add(self,guild):
         """Called when the bot joins a guild"""
-        print("HEEY")
         await self.send_guild_log(guild,"join")
 
 
     async def on_guild_del(self,guild):
         """Called when the bot left a guild"""
-        print("BYYE")
         await self.send_guild_log(guild,"left")
 
     async def send_guild_log(self,guild,Type):
@@ -82,22 +87,32 @@ class Events:
             pass
 
 
+
+    async def add_points(self,points):
+        """Ajoute ou enlève un certain nombre de points au score
+        La principale utilité de cette fonction est de pouvoir check le nombre de points à chaque changement"""
+        self.points += points
+
+
     async def check_user_left(self,member):
         """Vérifie si un joueur a été banni ou kick par ZBot"""
         t = None
-        print("lol")
         try:
             async for entry in member.guild.audit_logs(user=member.guild.me,limit=100):
+                print('check action {0.action} - date {0.created_at} on {0.target}'.format(entry))
                 if entry.created_at < datetime.datetime.utcnow()-datetime.timedelta(seconds=60):
                     break
                 if entry.action==discord.AuditLogAction.kick and entry.target==member:
-                    t = "kick"
+                    await self.add_points(self.table['kick'])
+                    break
                 elif entry.action==discord.AuditLogAction.ban and entry.target==member:
-                    t = "ban"
+                    await self.add_points(self.table['ban'])
+                    break
         except:
             print("events.py - unable to check logs for guild",member.guild.id)
             return
         print(t)
+        print(self.points)
 
 
 def setup(bot):
