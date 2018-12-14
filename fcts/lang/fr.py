@@ -52,7 +52,8 @@ cases={"no-user":"Impossible de trouver cet utilisateur",
 
 errors={"cooldown":"Vous êtes en cooldown pour cette commande. Veuillez attendre encore {} secondes...",
 "badarguments":"Oups, impossible de convertir le paramètre `{c[3]}` en type \"{c[1]}\" :confused:",
-"missingargument":"Oups, il manque l'argument \"{}\" {}"}
+"missingargument":"Oups, il manque l'argument \"{}\" {}",
+"membernotfound":"Impossible de trouver le membre `{}` :confused:"}
 
 find={"user-0":"Nom : {}\nID : {}",
 "user-1":"Nom : {}\nID : {}\nServeurs : {}",
@@ -354,7 +355,7 @@ server_desc={"prefix":"Préfixe actuel du bot : {}",
              "anti_caps_lock":"Le bot doit-il envoyer un message lorsqu'un membre envoie trop de majuscules ? {}",
              "enable_fun":"Les commandes répertoriées dans la commande `!fun` sont-elles activées ? {}",    
              "membercounter":"Salon affichant dans son nom le nombre de membres : {}",
-             "anti_raid":"Niveau de la protection anti-raid : {} \n*(Documentation : https://zbot.rtfd.io/)*",
+             "anti_raid":"Niveau de la protection anti-raid : {} \n*(Documentation : https://zbot.rtfd.io/en/latest/moderator.html#anti-raid)*",
              "vote_emojis":"Emojis utilisés pour les réactions de vote : {}",
              "help_in_dm":"Envoyer le message d'aide en message privés ? {}"}
 

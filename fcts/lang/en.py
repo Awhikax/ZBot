@@ -51,7 +51,8 @@ cases={"no-user":"Unable to find this user :eyes:",
 
 errors={"cooldown":"You are on cooldown for this command :confused: Please wait {} mode seconds...",
 "badarguments":"Oops, unable to convert the `{c[3]}` parameter to \"{c[1]}\" type :confused:",
-"missingargument":"Oops, the argument \"{}\" is missing {}"}
+"missingargument":"Oops, the argument \"{}\" is missing {}",
+"membernotfound":"Unable to find the member `{}` :confused:"}
 
 find={"user-0":"name: {}\nID: {}",
 "user-1":"Name: {}\nID: {}\nServers: {}",
@@ -328,7 +329,7 @@ server_desc={"clear": "List of roles that can use the 'clear' command: {}",
              "language": "Current bot language for this server: **{}**",
              "prefix":"Current bot prefix: {}",
              "membercounter":"Channel displaying number of members in its name: {}",
-             "anti_raid":"Level of anti-raid protection: {} \n*(Documentation: https://zbot.rtfd.io/)*",
+             "anti_raid":"Level of anti-raid protection: {} \n*(Documentation: https://zbot.rtfd.io/en/latest/moderator.html#anti-raid)*",
              "vote_emojis":"Emojis used for poll reactions: {}",
              "help_in_dm":"Send help message in Private Message? {}"}
 
