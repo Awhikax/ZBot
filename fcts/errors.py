@@ -41,9 +41,13 @@ class ErrorsCog:
             if len(args)!=4:
                 r = re.search(r'Could not convert \"([^\"]+)\" into ([^.]+)',str(error))
                 if r == None:
-                    print(error)
-                    return
-                args = [None,r.group(2),None,r.group(1)]
+                    r = re.search(r'Member \"([^\"]+)\" not found',str(error))
+                    if r == None:
+                        print(error)
+                        return
+                    await ctx.send(str(await self.translate(ctx.guild,'errors','membernotfound')).format(r.group(1)))
+                else:    
+                    args = [None,r.group(2),None,r.group(1)]
             await ctx.send(str(await self.translate(ctx.guild,'errors','badarguments')).format(c=args))
             return
         elif isinstance(error,commands.MissingRequiredArgument):

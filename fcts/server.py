@@ -97,7 +97,7 @@ class ServerCog:
         """Check is user is part of a staff"""
         if option not in roles_options:
             raise TypeError
-        if await self.bot.cogs['AdminCog'].check_if_admin(user):
+        if await self.bot.cogs['AdminCog'].check_if_admin(user) or user==user.guild.owner:
             return True
         staff = str(await self.find_staff(user.guild.id,option)).split(";")
         for r in user.roles:
