@@ -1,6 +1,6 @@
 import discord, feedparser, datetime, time, re, asyncio, mysql, random
 from discord.ext import commands
-from fcts import cryptage
+from fcts import cryptage, tokens
 
 secure_keys = dict()
 with open('fcts/requirements','r') as file:
@@ -73,6 +73,7 @@ class RssCog:
             self.print = bot.cogs["UtilitiesCog"].print2
         except:
             pass
+        self.zbot = discord.Client()
 
     async def on_ready(self):
         self.translate = self.bot.cogs["LangCog"].tr
@@ -682,8 +683,12 @@ class RssCog:
         emb = self.bot.cogs["EmbedCog"].Embed(desc="**RSS loop done** in {}s ({}/{} flows)".format(round(time.time()-t,3),check,len(liste)),color=1655066).update_timestamp().set_author(self.bot.guilds[0].me)
         await self.bot.cogs["EmbedCog"].send([emb],url="https://discordapp.com/api/webhooks/509079297353449492/1KlokgfF7vxRK37pHd15UjdxJSa5H9yzbOLAaRjYEQK7XIdjfMp9PCnER1-Dfz0PBSaM")
 
+    async def connect_zbot(self):
+        await self.zbot.start(tokens.get_token(self.bot.user.id))
+
     async def loop(self):
-        await self.bot.wait_until_ready()
+        await self.connect_zbot()
+        await self.zbot.wait_until_ready()
         await asyncio.sleep(3)
         await self.print(await self.bot.cogs['TimeCog'].date(datetime.datetime.now(),digital=True)+" Boucle rss commencée !")
         await self.logs_append("Boucle rss commencée")
