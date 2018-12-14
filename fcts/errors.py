@@ -1,4 +1,4 @@
-import discord, sys, traceback, random
+import discord, sys, traceback, random, re
 from discord.ext import commands
 
 class ErrorsCog:
@@ -36,8 +36,14 @@ class ErrorsCog:
         elif isinstance(error,commands.CommandOnCooldown):
             await ctx.send(str(await self.translate(ctx.guild,'errors','cooldown')).format(round(error.retry_after,3)))
             return
-        elif isinstance(error,commands.BadArgument):
+        elif isinstance(error,(commands.BadArgument,commands.BadUnionArgument)):
             args = error.args[0].split('\"')
+            if len(args)!=4:
+                r = re.search(r'Could not convert \"([^\"]+)\" into ([^.]+)',str(error))
+                if r == None:
+                    print(error)
+                    return
+                args = [None,r.group(2),None,r.group(1)]
             await ctx.send(str(await self.translate(ctx.guild,'errors','badarguments')).format(c=args))
             return
         elif isinstance(error,commands.MissingRequiredArgument):
