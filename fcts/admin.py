@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 
 
-import time, importlib, sys, traceback, datetime, os, shutil, asyncio, inspect, typing, io, textwrap
+import time, importlib, sys, traceback, datetime, os, shutil, asyncio, inspect, typing, io, textwrap, copy
 from contextlib import redirect_stdout
 from fcts import  reloads
 importlib.reload(reloads)
@@ -396,6 +396,18 @@ class AdminCog:
                 self._last_result = ret
                 await ctx.send(f'```py\n{value}{ret}\n```')
     
+    @commands.command(name='execute',hidden=True)
+    @commands.check(check_admin)
+    async def sudo(self, ctx, who: typing.Union[discord.Member, discord.User], *, command: str):
+        """Run a command as another user
+        Credits: Rapptz (https://github.com/Rapptz/RoboDanny/blob/rewrite/cogs/admin.py)"""
+        msg = copy.copy(ctx.message)
+        msg.author = who
+        msg.content = ctx.prefix + command
+        new_ctx = await self.bot.get_context(msg)
+        #new_ctx.db = ctx.db
+        await self.bot.invoke(new_ctx)
+
     async def backup_auto(self,ctx=None):
         """Crée une backup du code"""
         t = time.time()
