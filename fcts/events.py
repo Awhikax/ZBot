@@ -1,4 +1,4 @@
-import discord, datetime
+import discord, datetime, asyncio
 
 class Events:
     """Cog for the management of major events that do not belong elsewhere. Like when a new server invites the bot."""
@@ -92,21 +92,36 @@ class Events:
         """Ajoute ou enlève un certain nombre de points au score
         La principale utilité de cette fonction est de pouvoir check le nombre de points à chaque changement"""
         self.points += points
+        if self.points<0:
+            self.points = 0
+
+    async def add_event(self,event):
+        print("Points b4:",self.points)
+        if event == "kick":
+            await self.add_points(-self.table['kick'])
+        elif event == "ban":
+            await self.add_points(-self.table['ban'])
+        print("Points aftr:",self.points)
 
 
     async def check_user_left(self,member):
         """Vérifie si un joueur a été banni ou kick par ZBot"""
         try:
-            async for entry in member.guild.audit_logs(user=member.guild.me,limit=100):
+            async for entry in member.guild.audit_logs(user=member.guild.me,limit=15):
+                print(entry.created_at,' - ',datetime.datetime.utcnow()-datetime.timedelta(seconds=60))
+                print(entry.created_at < datetime.datetime.utcnow()-datetime.timedelta(seconds=60))
                 if entry.created_at < datetime.datetime.utcnow()-datetime.timedelta(seconds=60):
                     break
                 if entry.action==discord.AuditLogAction.kick and entry.target==member:
                     await self.add_points(self.table['kick'])
+                    print("kick")
                     break
                 elif entry.action==discord.AuditLogAction.ban and entry.target==member:
                     await self.add_points(self.table['ban'])
+                    print("ban")
                     break
-        except:
+        except Exception as e:
+            print("[check_user_left] {e}")
             return
 
 

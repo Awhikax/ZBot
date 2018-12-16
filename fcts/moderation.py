@@ -178,14 +178,15 @@ class ModeratorCog:
             if user.roles[-1].position > ctx.guild.me.roles[-1].position:
                 await ctx.send(await self.translate(ctx.guild.id,"modo","kick-1"))
                 return
-            try:
-                if reason == "Unspecified":
-                    await user.send(str(await self.translate(ctx.guild.id,"modo","kick-noreason")).format(ctx.guild.name))
-                else:
-                    await user.send(str(await self.translate(ctx.guild.id,"modo","kick-reason")).format(ctx.guild.name,reason))
-            except Exception as e:
-                await self.bot.cogs['ErrorsCog'].on_error(e,ctx)
-                pass
+            if user.id not in self.bot.cogs['WelcomerCog'].no_message:
+                try:
+                    if reason == "Unspecified":
+                        await user.send(str(await self.translate(ctx.guild.id,"modo","kick-noreason")).format(ctx.guild.name))
+                    else:
+                        await user.send(str(await self.translate(ctx.guild.id,"modo","kick-reason")).format(ctx.guild.name,reason))
+                except Exception as e:
+                    await self.bot.cogs['ErrorsCog'].on_error(e,ctx)
+                    pass
             reason = await self.bot.cogs["UtilitiesCog"].clear_msg(reason,everyone = not ctx.channel.permissions_for(ctx.author).mention_everyone)
             CasesCog = self.bot.cogs['CasesCog']
             await ctx.guild.kick(user,reason=reason)
@@ -205,6 +206,7 @@ class ModeratorCog:
         except Exception as e:
             await ctx.send(await self.translate(ctx.guild.id,"modo","error"))
             await self.bot.cogs['ErrorsCog'].on_error(e,ctx)
+        await self.bot.cogs['Events'].add_event('kick')
 
 
     @commands.command(name="warn")
@@ -224,10 +226,11 @@ class ModeratorCog:
             await self.bot.cogs['ErrorsCog'].on_error(e,ctx)
             return
         try:
-            try:
-                await user.send(str(await self.translate(ctx.guild.id,"modo","warn-mp")).format(ctx.guild.name,message))
-            except:
-                pass
+            if user.id not in self.bot.cogs['WelcomerCog'].no_message:
+                try:
+                    await user.send(str(await self.translate(ctx.guild.id,"modo","warn-mp")).format(ctx.guild.name,message))
+                except:
+                    pass
             message = await self.bot.cogs["UtilitiesCog"].clear_msg(message,everyone = not ctx.channel.permissions_for(ctx.author).mention_everyone)
             CasesCog = self.bot.cogs['CasesCog']
             caseIDs = await CasesCog.get_ids()
@@ -354,7 +357,7 @@ class ModeratorCog:
                 if member.roles[-1].position > ctx.guild.me.roles[-1].position:
                     await ctx.send(await self.translate(ctx.guild.id,"modo","ban-1"))
                     return
-            if user in self.bot.users:
+            if user in self.bot.users and user.id not in self.bot.cogs['WelcomerCog'].no_message:
                 try:
                     if reason == "Unspecified":
                         await user.send(str(await self.translate(ctx.guild.id,"modo","ban-noreason")).format(ctx.guild.name))
@@ -366,6 +369,7 @@ class ModeratorCog:
             reason = await self.bot.cogs["UtilitiesCog"].clear_msg(reason,everyone = not ctx.channel.permissions_for(ctx.author).mention_everyone)
             CasesCog = self.bot.cogs['CasesCog']
             await ctx.guild.ban(user,reason=reason)
+            await self.bot.cogs['Events'].add_event('ban')
             caseIDs = await CasesCog.get_ids()
             case = CasesCog.Case(guildID=ctx.guild.id,memberID=user.id,Type="ban",ModID=ctx.author.id,Reason=reason,date=datetime.datetime.now()).create_id(caseIDs)
             try:
