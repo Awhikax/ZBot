@@ -75,7 +75,6 @@ class InfosCog:
             await m.edit(content="Pong ! ("+str(round(t*1000,3))+"ms)")
         else:
             asyncio.run_coroutine_threadsafe(self.ping_adress(ctx,ip),asyncio.get_event_loop())
-            await ctx.send('test')
 
     async def ping_adress(self,ctx,ip):
         packages = 40

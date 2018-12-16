@@ -120,6 +120,7 @@ class ServerCog:
         
     async def get_server(self,columns=[],criters=["ID>1"],relation="AND",ID=None,channel=None,Type=dict):
         """return every options of a server"""
+        await self.bot.wait_until_ready()
         if type(columns)!=list or type(criters)!=list:
             raise ValueError
         cnx = self.connect()

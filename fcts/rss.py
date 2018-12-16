@@ -45,6 +45,9 @@ guilds_limit_exceptions={"391968999098810388":30,
         "356067272730607628":30}
 
 
+async def check_admin(ctx):
+    return await ctx.bot.cogs['AdminCog'].check_if_admin(ctx)
+
 async def can_use_rss(ctx):
     return ctx.channel.permissions_for(ctx.author).administrator or await ctx.bot.cogs["AdminCog"].check_if_admin(ctx)
 
@@ -687,9 +690,11 @@ class RssCog:
         await self.zbot.start(tokens.get_token(self.bot.user.id))
 
     async def loop(self):
-        await self.connect_zbot()
+        await self.bot.wait_until_ready()
+        loop = asyncio.new_event_loop()
+        asyncio.run_coroutine_threadsafe(self.connect_zbot(),loop)
         await self.zbot.wait_until_ready()
-        await asyncio.sleep(3)
+        print('[rss_loop] loop called with success!')
         await self.print(await self.bot.cogs['TimeCog'].date(datetime.datetime.now(),digital=True)+" Boucle rss commencée !")
         await self.logs_append("Boucle rss commencée")
         await self.main_loop()
@@ -709,7 +714,7 @@ class RssCog:
 
 
     @commands.command(name="rss_loop",hidden=True)
-    @commands.is_owner()
+    @commands.check(check_admin)
     async def rss_loop_admin(self,ctx,permanent:bool=False):
         """Force the rss loop"""
         if permanent:

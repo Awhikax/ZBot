@@ -54,7 +54,10 @@ class ErrorsCog:
             await ctx.send(str(await self.translate(ctx.guild,'errors','missingargument')).format(error.param.name,random.choice([':eyes:','',':confused:',':thinking:',''])))
             return
         else:
-            await ctx.send("`ERROR:` "+str(error))
+            try:
+                await ctx.send("`ERROR:` "+str(error))
+            except:
+                print("[on_cmd_error] Can't send error on channel {ctx.channel.id}")
         # All other Errors not returned come here... And we can just print the default TraceBack.
         print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
         #traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)

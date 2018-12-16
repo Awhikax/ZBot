@@ -96,10 +96,8 @@ class Events:
 
     async def check_user_left(self,member):
         """Vérifie si un joueur a été banni ou kick par ZBot"""
-        t = None
         try:
             async for entry in member.guild.audit_logs(user=member.guild.me,limit=100):
-                print('check action {0.action} - date {0.created_at} on {0.target}'.format(entry))
                 if entry.created_at < datetime.datetime.utcnow()-datetime.timedelta(seconds=60):
                     break
                 if entry.action==discord.AuditLogAction.kick and entry.target==member:
@@ -109,10 +107,7 @@ class Events:
                     await self.add_points(self.table['ban'])
                     break
         except:
-            print("events.py - unable to check logs for guild",member.guild.id)
             return
-        print(t)
-        print(self.points)
 
 
 def setup(bot):
