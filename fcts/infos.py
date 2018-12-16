@@ -423,14 +423,15 @@ Available types: member, role, user, emoji, channel, guild, invite, category"""
         if u == None:
             await ctx.send(await self.translate(ctx.guild,"find","user-2"))
             return
-        if await self.bot.cogs["AdminCog"].check_if_admin(ctx):
-            liste = list()
-            for s in self.bot.guilds:
-                if u in s.members:
-                    liste.append(s.name)
-            await ctx.send(str(await self.translate(ctx.guild,"find","user-1")).format(u,u.id,", ".join(liste)))
+        liste = list()
+        for s in self.bot.guilds:
+            if u in s.members:
+                liste.append(s.name)
+        if await self.bot.cogs['UtilitiesCog'].is_premium(u):
+            pr = "Oui"
         else:
-             await ctx.send(str(await self.translate(ctx.guild,"find","user-0")).format(u,u.id))
+            pr = "Non"
+        await ctx.send(str(await self.translate(ctx.guild,"find","user-1")).format(u,u.id,", ".join(liste),pr))
 
     @find_main.command(name="guild")
     async def find_guild(self,ctx,ID:int):

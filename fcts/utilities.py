@@ -205,6 +205,19 @@ class UtilitiesCog:
                 text = text.replace(x.group(0),"<{}:{}:{}>".format('a' if em.animated else '' , em.name , em.id))
         return text
 
+    async def is_premium(self,user):
+        guild = self.bot.get_guild(356067272730607628)
+        if guild == None:
+            return False
+        if type(user)==discord.User:
+            user = guild.get_member(user.id)
+            if user == None:
+                return False
+        role = guild.get_role(523904552374763532)
+        if role == None:
+            return False
+        return role in user.roles
+
 
 def setup(bot):
     bot.add_cog(UtilitiesCog(bot))
