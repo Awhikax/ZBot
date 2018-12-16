@@ -97,7 +97,7 @@ For helping me in the creation of the bot, my owner and I would like to thank re
 :globe_with_meridians: Some links may be useful: 
 :arrow_forward: My Discord server : http://discord.gg/N55zY88
 :arrow_forward: A link to invite me to another server : <https://bot.discord.io/zbot>
-:arrow_forward: The bot documentation : <https://zbot.readthedocs.io/en/v3>
+:arrow_forward: The bot documentation : <https://zbot.rtfd.io/>
 
 Have a nice day!""",
 "docs":"Here is the link to the bot documentation:",
@@ -329,7 +329,7 @@ server_desc={"clear": "List of roles that can use the 'clear' command: {}",
              "language": "Current bot language for this server: **{}**",
              "prefix":"Current bot prefix: {}",
              "membercounter":"Channel displaying number of members in its name: {}",
-             "anti_raid":"Level of anti-raid protection: {} \n*(Documentation: https://zbot.rtfd.io/en/latest/moderator.html#anti-raid)*",
+             "anti_raid":"Level of anti-raid protection: {} \n*([Documentation](https://zbot.rtfd.io/en/latest/moderator.html#anti-raid))*",
              "vote_emojis":"Emojis used for poll reactions: {}",
              "help_in_dm":"Send help message in Private Message? {}"}
 
@@ -367,7 +367,7 @@ stats_infos={"not-found":"Unable to find {}",
             "guild-5":"Number of emojis",
             "guild-6":"Number of channels",
             "guild-7":"{} including {} bots ({} connected)",
-            "guild-8":"Two-factor authentication",
+            "guild-8":"Two-factor authentification",
             "guild-9":"Security level",
             "guild-10":"Time before being AFK",
             "guild-11.1":"20 first roles (total {})",

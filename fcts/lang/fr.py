@@ -98,7 +98,7 @@ Pour m'avoir aidé dans la création du bot, mon propriétaire et moi souhaitons
 :globe_with_meridians: Quelques liens pourront vous être utiles : 
 :arrow_forward: Mon serveur Discord : http://discord.gg/N55zY88
 :arrow_forward: Un lien pour m'inviter dans un autre serveur : <https://bot.discord.io/zbot>
-:arrow_forward: La documentation du bot : <https://zbot.readthedocs.io/en/v3>
+:arrow_forward: La documentation du bot : <https://zbot.rtfd.io/>
 
 Bonne journée !""",
 "docs":"Voici le lien vers la documentation du bot :",
@@ -355,7 +355,7 @@ server_desc={"prefix":"Préfixe actuel du bot : {}",
              "anti_caps_lock":"Le bot doit-il envoyer un message lorsqu'un membre envoie trop de majuscules ? {}",
              "enable_fun":"Les commandes répertoriées dans la commande `!fun` sont-elles activées ? {}",    
              "membercounter":"Salon affichant dans son nom le nombre de membres : {}",
-             "anti_raid":"Niveau de la protection anti-raid : {} \n*(Documentation : https://zbot.rtfd.io/en/latest/moderator.html#anti-raid)*",
+             "anti_raid":"Niveau de la protection anti-raid : {} \n*([Documentation](https://zbot.rtfd.io/en/latest/moderator.html#anti-raid))*",
              "vote_emojis":"Emojis utilisés pour les réactions de vote : {}",
              "help_in_dm":"Envoyer le message d'aide en message privés ? {}"}
 
