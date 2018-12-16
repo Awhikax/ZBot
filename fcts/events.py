@@ -47,7 +47,7 @@ class Events:
     async def on_new_message(self,msg):
         if msg.guild == None:
             await self.send_mp(msg)
-        if msg.author.bot==False and await self.bot.cogs['AdminCog'].check_if_admin(msg.author) == False:
+        if msg.author.bot==False and await self.bot.cogs['AdminCog'].check_if_admin(msg.author) == False and msg.guild!=None:
             if str(await self.bot.cogs["ServerCog"].find_staff(msg.guild,"anti_caps_lock")) in ['1','True'] and len(msg.content)>7:
                 if sum(1 for c in msg.content if c.isupper())/len(msg.content) > 0.75:
                     try:
