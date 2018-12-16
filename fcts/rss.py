@@ -631,7 +631,10 @@ class RssCog:
         if not channel == None:
             t = await obj.create_msg(self.date,await self.translate(channel.guild,"current_lang","current"))
             await self.logs_append("Message envoyé !")
-            await channel.send(t)
+            try:
+                await channel.send(t)
+            except Exception as e:
+                print("[send_rss_msg] Can not send message on channel {channel.id}: {e}")
 
     async def check_flow(self,flow):
         if flow['link'] in self.flows.keys():
@@ -693,7 +696,8 @@ class RssCog:
         await self.bot.wait_until_ready()
         loop = asyncio.new_event_loop()
         asyncio.run_coroutine_threadsafe(self.connect_zbot(),loop)
-        await self.zbot.wait_until_ready()
+        #await self.zbot.wait_until_ready()
+        await asyncio.sleep(0.5)
         print('[rss_loop] loop called with success!')
         await self.print(await self.bot.cogs['TimeCog'].date(datetime.datetime.now(),digital=True)+" Boucle rss commencée !")
         await self.logs_append("Boucle rss commencée")
