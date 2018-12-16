@@ -42,7 +42,7 @@ cases={"no-user":"Unable to find dis usr :eyes:",
     "cases-0":"{} cases fund: ({}-{})"}
 
 find={"user-0":"naym: {}\nID: {}",
-"user-1":"Naym: {}\nID: {}\nServers: {}",
+"user-1":"Naym: {}\nID: {}\nServers: {}\nPremium ? {}",
 "user-2":"Usr not findz",
 "guild-0":"Servr not findz",
 "guild-1":"Name: {}\nID: {}\nOwnr: {} ({})",

@@ -56,7 +56,7 @@ errors={"cooldown":"Vous êtes en cooldown pour cette commande. Veuillez attendr
 "membernotfound":"Impossible de trouver le membre `{}` :confused:"}
 
 find={"user-0":"Nom : {}\nID : {}",
-"user-1":"Nom : {}\nID : {}\nServeurs : {}",
+"user-1":"Nom : {}\nID : {}\nServeurs : {}\nPremium ? {}",
 "user-2":"Utilisateur introuvable",
 "guild-0":"Serveur introuvable",
 "guild-1":"Nom : {}\nID : {}\nPropriétaire : {} ({})",
