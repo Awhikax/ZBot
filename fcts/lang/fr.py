@@ -48,7 +48,10 @@ cases={"no-user":"Impossible de trouver cet utilisateur",
     "not-found":"Ce casier n'a pas été trouvé :confused:",
     "reason-edited":"La raison du casier n°{} a bien été modifiée !",
     "deleted":"Le casier n°{} a bien été supprimé !",
-    "cases-0":"{} casiers trouvés : ({}-{})"}
+    "cases-0":"{} casiers trouvés : ({}-{})",
+    "search-0":"**Membre:** {U}\n**Type:** {T}\n**Moderateur:** {M}\n**Date:** {D}\n**Raison:** *{R}*",
+    "search-1":"**Membre:** {U}\n**Serveur:** {G}\n**Type:** {T}\n**Moderateur:** {M}\n**Date:** {D}\n**Raison:** *{R}*",
+    'title-search':'Casier #{}'}
 
 errors={"cooldown":"Vous êtes en cooldown pour cette commande. Veuillez attendre encore {} secondes...",
 "badarguments":"Oups, impossible de convertir le paramètre `{c[3]}` en type \"{c[1]}\" :confused:",

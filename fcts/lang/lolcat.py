@@ -39,7 +39,10 @@ cases={"no-user":"Unable to find dis usr :eyes:",
     "not-found":"Dis caze was not fund :upside_down:",
     "reason-edited":"Teh ryson for case #{} has been changd!",
     "deleted":"The caze #{} has byn deletd!",
-    "cases-0":"{} cases fund: ({}-{})"}
+    "cases-0":"{} cases fund: ({}-{})",
+    "search-0":"**Uzr:** {U}\n**Type:** {T}\n**Mod:** {M}\n**Date:** {D}\n**Reazon:** *{R}*",
+    "search-1":"**Uzr:** {U}\n**Servr:** {G}\n**Type:** {T}\n**Modz:** {M}\n**Date:** {D}\n**Reazon:** *{R}*",
+    'title-search':'Case #{}'}
 
 find={"user-0":"naym: {}\nID: {}",
 "user-1":"Naym: {}\nID: {}\nServers: {}\nPremium ? {}",

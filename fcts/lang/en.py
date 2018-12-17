@@ -47,7 +47,10 @@ cases={"no-user":"Unable to find this user :eyes:",
     "not-found":"This case was not found :confused:",
     "reason-edited":"The reason for case #{} has been changed!",
     "deleted":"The case #{} has been deleted!",
-    "cases-0":"{} cases found: ({}-{})"}
+    "cases-0":"{} cases found: ({}-{})",
+    "search-0":"**User:** {U}\n**Type:** {T}\n**Moderator:** {M}\n**Date:** {D}\n**Reason:** *{R}*",
+    "search-1":"**User:** {U}\n**Guild:** {G}\n**Type:** {T}\n**Moderator:** {M}\n**Date:** {D}\n**Reason:** *{R}*",
+    'title-search':'Case #{}'}
 
 errors={"cooldown":"You are on cooldown for this command :confused: Please wait {} mode seconds...",
 "badarguments":"Oops, unable to convert the `{c[3]}` parameter to \"{c[1]}\" type :confused:",

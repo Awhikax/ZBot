@@ -38,6 +38,10 @@ class InfosCog:
         self.timecog = self.bot.cogs["TimeCog"]
     
 
+    async def is_support(self,ctx):
+        """Check if a user is part of the ZBot team"""
+        return await is_support_staff(ctx)
+
     @commands.command(name="stats")
     async def stats(self,ctx):
         """Display some statistics about the bot"""

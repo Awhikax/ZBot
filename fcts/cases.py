@@ -256,6 +256,48 @@ class CasesCog:
         await self.update_reason(case)
         await ctx.send(str(await self.translate(ctx.guild.id,"cases","reason-edited")).format(case.id))
     
+    @case_main.command(name="search")
+    @commands.guild_only()
+    async def search_case(self,ctx,case:int):
+        """Search for a specific case in your guild"""
+        try:
+            isSupport = await self.bot.cogs['InfosCog'].is_support(ctx)
+            c = ["ID="+str(case)]
+            if not isSupport:
+                c.append("guild="+str(ctx.guild.id))
+            cases = await self.get_case(criters=c)
+        except Exception as e:
+            await self.bot.cogs["ErrorsCog"].on_error(e,ctx)
+            return
+        if len(cases)!=1:
+            await ctx.send(await self.translate(ctx.guild.id,"cases","not-found"))
+            return
+        if not ctx.channel.permissions_for(ctx.guild.me).embed_links:
+            await ctx.send(await self.translate(ctx.guild.id,"mc","cant-embed"))
+            return
+        try:
+            case = cases[0]
+            user = await self.bot.get_user_info(case.user)
+            mod = await self.bot.get_user_info(case.mod)
+            u = "{} ({})".format(user,user.id)
+            if not isSupport:
+                guild = ctx.guild.name
+                v = await self.translate(ctx.guild.id,'cases','search-0')
+            else:
+                guild = "{0.name} ({0.id})".format(self.bot.get_guild(case.guild))
+                v = await self.translate(ctx.guild.id,'cases','search-1')
+            title = str(await self.translate(ctx.guild.id,"cases","title-search")).format(case.id)
+            l = await self.translate(ctx.guild.id,"current_lang","current")
+            v = v.format(G=guild,U=u,T=case.type,M=str(mod),R=case.reason,D=await self.bot.cogs['TimeCog'].date(case.date,lang=l,year=True,digital=True))
+
+            emb = self.bot.cogs['EmbedCog'].Embed(title=title,desc=v,color=self.bot.cogs['ServerCog'].embed_color).update_timestamp().set_author(user)
+            await ctx.send(embed=emb.discord_embed())
+        except Exception as e:
+            await self.bot.cogs["ErrorsCog"].on_error(e,ctx)
+
+        
+        
+
     @case_main.command(name="remove",aliases=["clear","delete"])
     @commands.guild_only()
     async def remove(self,ctx,case:int):
