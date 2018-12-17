@@ -116,6 +116,8 @@ class WelcomerCog:
         """Send a log to the logging channel"""
         if member.id in self.no_message or member.id==self.bot.user.id:
             return
+        if member.guild.id in self.bot.cogs['ReloadsCog'].ignored_guilds:
+            return
         try:
             t = "Bot" if member.bot else "Member"
             if Type == "welcome":
