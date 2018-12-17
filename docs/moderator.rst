@@ -159,6 +159,15 @@ The persons authorized to use this command are the same as for the `warn <#warn>
 .. warning:: The list of cases is returned in an embed, which means that the bot must have "`Embed Links <perms.html#embed-links>`_" permission.
 
 
+Search for a case
+-----------------
+
+**Syntax:** :code:`cases search <case ID>`
+
+This command allows you to search for a case from its identifier. The identifiers are unique for the whole bot, so you can't see them all. However, the ZBot support team has access to all the cases (without being able to modify them)
+
+.. warning:: The case is returned in an embed, which means that the bot must have "`Embed Links <perms.html#embed-links>`_" permission to send it correctly.
+
 Edit Reason
 -----------
 
