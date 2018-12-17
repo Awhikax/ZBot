@@ -683,7 +683,7 @@ class RssCog:
                     check +=1
             except Exception as e:
                 await self.bot.cogs['ErrorsCog'].on_error(e,None)
-            await asyncio.sleep(1.0)
+            await asyncio.sleep(0.5)
         self.flows = dict()
         self.bot.cogs['McCog'].flows = dict()
         emb = self.bot.cogs["EmbedCog"].Embed(desc="**RSS loop done** in {}s ({}/{} flows)".format(round(time.time()-t,3),check,len(liste)),color=1655066).update_timestamp().set_author(self.bot.guilds[0].me)
@@ -692,6 +692,14 @@ class RssCog:
     async def connect_zbot(self):
         await self.zbot.start(tokens.get_token(self.bot.user.id))
 
+    async def loop_child(self):
+        await self.print(await self.bot.cogs['TimeCog'].date(datetime.datetime.now(),digital=True)+" Boucle rss commencée !")
+        await self.bot.cogs["RssCog"].logs_append("Boucle rss commencée")
+        await self.bot.cogs["RssCog"].main_loop()
+        await self.bot.cogs["RssCog"].logs_append("Boucle rss finie\n-----------------\n")
+        await self.print(await self.bot.cogs['TimeCog'].date(datetime.datetime.now(),digital=True)+" Boucle rss terminée !")
+        await self.bot.cogs["RssCog"].write_log()
+
     async def loop(self):
         await self.bot.wait_until_ready()
         loop = asyncio.new_event_loop()
@@ -699,21 +707,11 @@ class RssCog:
         #await self.zbot.wait_until_ready()
         await asyncio.sleep(0.5)
         print('[rss_loop] loop called with success!')
-        await self.print(await self.bot.cogs['TimeCog'].date(datetime.datetime.now(),digital=True)+" Boucle rss commencée !")
-        await self.logs_append("Boucle rss commencée")
-        await self.main_loop()
-        await self.logs_append("Boucle rss finie\n-----------------\n")
-        await self.print(await self.bot.cogs['TimeCog'].date(datetime.datetime.now(),digital=True)+" Boucle rss terminée !")
-        await self.write_log()
+        await self.loop_child()
         await asyncio.sleep((int(datetime.datetime.now().minute)%self.time_loop)*60-2)
         while not self.bot.is_closed():
             if int(datetime.datetime.now().minute)%self.time_loop==0:
-                await self.print(await self.bot.cogs['TimeCog'].date(datetime.datetime.now(),digital=True)+" Boucle rss commencée !")
-                await self.bot.cogs["RssCog"].logs_append("Boucle rss commencée")
-                await self.bot.cogs["RssCog"].main_loop()
-                await self.bot.cogs["RssCog"].logs_append("Boucle rss finie\n-----------------\n")
-                await self.print(await self.bot.cogs['TimeCog'].date(datetime.datetime.now(),digital=True)+" Boucle rss terminée !")
-                await self.bot.cogs["RssCog"].write_log()
+                await self.loop_child()
                 await asyncio.sleep(self.time_loop*60-5)
 
 

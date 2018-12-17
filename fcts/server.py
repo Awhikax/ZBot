@@ -335,7 +335,7 @@ class ServerCog:
                 v = 1
             elif value.lower() in ["false","faux","non","no","désactivé","wrong"]:
                 value = False
-                v = 2
+                v = 0
             else:
                 msg = await self.translate(ctx.guild.id,"server","change-4")
                 await ctx.send(msg.format(option))

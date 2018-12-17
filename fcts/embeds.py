@@ -79,7 +79,11 @@ class EmbedCog:
             return self
 
         def discord_embed(self):
-            emb = discord.Embed(title=self.title, colour=discord.Color(self.color), url=self.url, description=self.description, timestamp=self.timestamp)
+            if type(self.color)==discord.Colour:
+                color = self.color
+            else:
+                color = discord.Color(self.color)
+            emb = discord.Embed(title=self.title, colour=color, url=self.url, description=self.description, timestamp=self.timestamp)
             emb.set_image(url=self.image)
             emb.set_thumbnail(url=self.thumbnail)
             emb.set_author(name=self.author_name, url=self.author_url, icon_url=self.author_icon)
