@@ -21,7 +21,6 @@ Pour limiter les dégâts, j'ai été forcé de quitter immédiatement l'intégr
 Pour plus d'informations sur l'état actuel de la crise, rendez-vous sur mon serveur officiel : https://discord.me/z_bot (vérifiez le lien depuis la documentation si celui-ci ne fonctionne plus : https://zbot.rtfd.io)"
     }
 
-
 aide={"no-subcmd":"La commande {0.name} n'a aucune sous-commande",
 "mods":['Modération :','Autres :'],
 "footer":"Entrez {}help commande pour plus d'informations sur une commande",
@@ -107,7 +106,7 @@ Pour m'avoir aidé dans la création du bot, mon propriétaire et moi souhaitons
 Bonne journée !""",
 "docs":"Voici le lien vers la documentation du bot :",
 "stats-title":"**Statistiques du bot**",
-"stats":"""**Version du bot :** {} \n**Nombre de serveurs :** {} \n**Nombre de membres visibles :** {} (dont {} bots)\n**Version de Python :** {} \n**Version de la bibliothèque `discord.py` :** {} \n**Charge sur la mémoire vive :** {} GB \n**Charge sur le CPU :** {} % \n**Temps de latence de l'api :** {} ms"""}
+"stats":"""**Version du bot :** {} \n**Nombre de serveurs :** {} \n**Nombre de membres visibles :** {} \n**Version de Python :** {} \n**Version de la bibliothèque `discord.py` :** {} \n**Charge sur la mémoire vive :** {} GB \n**Charge sur le CPU :** {} % \n**Temps de latence de l'api :** {} ms"""}
 
 infos_2={"membercount-0":"Nombre de membres total",
 "membercount-1":"Nombre de bots",
@@ -139,7 +138,7 @@ kill={"list":["Oh toi, tu vas mourir !",
           "{0} a crié \"Fus Roh Dah\" alors que {1} était à coté d'une falaise...",
           "Eh non, tu ne peux pas arreter les balles avec tes mains {1} :shrug:",
           "Il faut être __dans__ l’ascenseur {1}, pas __au-dessus__...",
-          "{1} est resté trop près des enceintes lors d'un concert de heavy metal",
+          "{1} est resté trop près des enceintes lors d'un concert de heavy metal.",
           "Rester à moins de 10m d'une explosion atomique, ce n'était pas une bonne idée {1}...",
           "Non ! Les doubles sauts ne sont pas possibles {1} !",
           "{1} a imité Icare... splash.",
@@ -181,7 +180,6 @@ mc={"contact-mail":"Si vous constatez une erreur dans les informations données,
     "no-ping":"Erreur : Impossible de ping ce serveur",
     "success-add":"Un message avec les détails du serveur {} a bien été ajouté dans le salon {} !",
     "cant-embed":"Impossible d'envoyez l'embed. Vérifiez que la permission \"Embed links\" est bien activée svp",
-
     "names":("Bloc","Entité","Item","Commande","Progrès"),
     "entity-help":"Cette commande permet d'obtenir des informations sur n'importe quelle entité de Minecraft. Vous pouvez donner son nom complet ou partiel, en français ou en anglais, ou même son identifiant. Il suffit d'entrer `!mc entity <nom>`",
     "block-help":"Cette commande permet d'obtenir des informations sur n'importe quel bloc de Minecraft. Vous pouvez donner son nom complet ou partiel, en français ou en anglais, ou même son identifiant. Il suffit d'entrer `!mc block <nom>`",
