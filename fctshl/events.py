@@ -47,8 +47,9 @@ class Events:
     async def on_new_message(self,msg):
         if msg.guild == None:
             await self.send_mp(msg)
+            return 
         if msg.author.bot==False and await self.bot.cogs['AdminCog'].check_if_admin(msg.author) == False and msg.guild!=None:
-            if str(await self.bot.cogs["ServerCog"].find_staff(msg.guild,"anti_caps_lock")) in ['1','True'] and len(msg.content)>7:
+            if not msg.channel.permissions_for(msg.author).manage_guild and len(msg.content)>7:
                 if sum(1 for c in msg.content if c.isupper())/len(msg.content) > 0.75:
                     try:
                         await msg.channel.send(str(await self.bot.cogs["LangCog"].tr(msg.guild,"modo","caps-lock")).format(msg.author.mention),delete_after=4.0)
@@ -69,26 +70,7 @@ class Events:
 
     async def send_logs_per_server(self,guild,Type,message,author=None):
         """Send a log in a server. Type is used to define the color of the embed"""
-        c = self.embed_colors[Type.lower()]
-        try:
-            config = str(await self.bot.cogs["ServerCog"].find_staff(guild.id,"modlogs_channel")).split(';')[0]
-            if config == "" or config.isnumeric()==False:
-                return
-            channel = guild.get_channel(int(config))
-        except Exception as e:
-            await self.bot.cogs["ErrorsCog"].on_error(e,None)
-            return
-        if channel == None:
-            return
-        emb = self.bot.cogs["EmbedCog"].Embed(desc=message,color=c).update_timestamp()
-        if author != None:
-            emb.set_author(author)
-        try:
-            await channel.send(embed=emb.discord_embed())
-        except:
-            pass
-
-
+        return
 
     async def add_points(self,points):
         """Ajoute ou enlève un certain nombre de points au score
@@ -98,12 +80,10 @@ class Events:
             self.points = 0
 
     async def add_event(self,event):
-        print("Points b4:",self.points)
         if event == "kick":
             await self.add_points(-self.table['kick'])
         elif event == "ban":
             await self.add_points(-self.table['ban'])
-        print("Points aftr:",self.points)
 
 
     async def check_user_left(self,member):
@@ -119,7 +99,7 @@ class Events:
                     await self.add_points(self.table['ban'])
                     break
         except Exception as e:
-            print("[check_user_left] {}".format(e))
+            print("[check_user_left] {} (user {}/server {})".format(e,member.id,member.guild.id))
             return
 
 

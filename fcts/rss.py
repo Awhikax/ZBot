@@ -59,6 +59,7 @@ class RssCog:
         self.flows = dict()
         self.flow_limit = 10
         self.time_loop = 10
+        self.time_between_flows_check = 0.2
         self.file = "rss"
         self.embed_color = discord.Color(6017876)
         self.rss_logs = str()
@@ -683,7 +684,7 @@ class RssCog:
                     check +=1
             except Exception as e:
                 await self.bot.cogs['ErrorsCog'].on_error(e,None)
-            await asyncio.sleep(0.5)
+            await asyncio.sleep(self.time_between_flows_check)
         self.flows = dict()
         self.bot.cogs['McCog'].flows = dict()
         emb = self.bot.cogs["EmbedCog"].Embed(desc="**RSS loop done** in {}s ({}/{} flows)".format(round(time.time()-t,3),check,len(liste)),color=1655066).update_timestamp().set_author(self.bot.guilds[0].me)

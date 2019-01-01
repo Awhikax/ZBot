@@ -1,8 +1,5 @@
 import discord, sys, traceback, importlib, datetime,random, re
-from fcts import utilities
 from discord.ext import commands
-
-
 
 class UtilitiesCog:
     """This cog has various useful functions for the rest of the bot."""
@@ -11,41 +8,14 @@ class UtilitiesCog:
         self.bot = bot
         self.list_prefixs = dict()
         self.file = "utilities"
-        self.config = None
         self.table = 'users'
-        
-    async def on_ready(self):
-        self.config = await self.bot.cogs['ServerCog'].get_bot_infos(self.bot.user.id)
 
     async def reload(self,liste):
         for m in liste:
             exec("importlib.reload({})".format(m))
 
     def find_prefix(self,guild):
-        if guild==None:
-            return '!'
-        if str(guild.id) in self.list_prefixs.keys():
-            return self.list_prefixs[str(guild.id)]
-        else:
-            cnx = self.bot.cogs['ServerCog'].connect()
-            cursor = cnx.cursor(dictionary = False)
-            cursor.execute("SELECT `prefix` FROM `servers` WHERE `ID`="+str(guild.id))
-            liste = list()
-            for x in cursor:
-                liste.append(x)
-            cnx.close()
-            if liste == []:
-                self.list_prefixs[str(guild.id)] = '!'
-                return '!'
-            self.list_prefixs[str(guild.id)] = liste[0][0]
-            return str(liste[0][0])
-
-    def update_prefix(self,ID,prefix):
-        try:
-            print("Prefix updated for guild {} : changed to {}".format(ID,prefix))
-        except:
-            pass
-        self.list_prefixs[str(ID)] = prefix
+        return ['!',guild.me.mention+" "]
 
     async def print2(self,text):
         try:
@@ -85,7 +55,7 @@ class UtilitiesCog:
                     if item != None:
                         return item
                 except:
-                    if name.isnumeric():
+                    if name.isnumeric() and i==commands.UserConverter:
                         item = await self.bot.get_user_info(int(name))
                         if item != None:
                             return item
@@ -146,15 +116,7 @@ class UtilitiesCog:
 
     async def global_check(self,ctx):
         """Check if the guild is a banned guild (aka ignored commands)"""
-        if type(ctx)==commands.context:
-            ctx = ctx.guild
-        elif type(ctx) != discord.guild:
-            return True
-        if self.config == None:
-            self.config = await self.bot.cogs['ServerCog'].get_bot_infos(self.bot.user.id)
-        if len(self.config)==0:
-            return True
-        return not str(ctx.id) in self.config[0]['banned_guilds'].split(";")
+        return True
 
     async def create_footer(self,embed,user):
         embed.set_footer(text="Requested by {}".format(user.name), icon_url=user.avatar_url_as(format='png'))
@@ -217,49 +179,9 @@ class UtilitiesCog:
                 text = text.replace(x.group(0),"<{}:{}:{}>".format('a' if em.animated else '' , em.name , em.id))
         return text
 
-
-    async def get_db_userinfo(self,columns=[],criters=["ID>1"],relation="AND",Type=dict):
-        """Get every info about a user with the database"""
-        await self.bot.wait_until_ready()
-        if type(columns)!=list or type(criters)!=list:
-            raise ValueError
-        cnx = self.bot.cogs['ServerCog'].connect()
-        cursor = cnx.cursor(dictionary = True)
-        if columns == []:
-            cl = "*"
-        else:
-            cl = "`"+"`,`".join(columns)+"`"
-        relation = " "+relation+" "
-        query = ("SELECT {} FROM `{}` WHERE {}".format(cl,self.table,relation.join(criters)))
-        cursor.execute(query)
-        liste = list()
-        for x in cursor:
-            liste.append(x)
-        cnx.close()
-        if len(liste)==1:
-            return liste[0]
-        elif len(liste)>1:
-            return liste
-        else:
-            return None
-
-    async def get_number_premium(self):
-        """Return the number of premium users"""
-        try:
-            params = await self.get_db_userinfo(criters=['Premium=1'])
-            return len(params)
-        except Exception as e:
-            await self.bot.cogs['Errors'].on_error(e,None)
-
     async def is_premium(self,user):
         """Check if a user is premium"""
-        try:
-            parameters = await self.get_db_userinfo(criters=["ID="+str(user.id)],columns=['premium'])
-        except Exception as e:
-            await self.bot.cogs["Errors"].on_error(e,None)
-        if parameters==None:
-            return False
-        return parameters['premium']
+        return False
 
 
 def setup(bot):

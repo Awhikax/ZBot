@@ -1,10 +1,9 @@
 import discord
 from discord.ext import commands
 
-
 import time, importlib, sys, traceback, datetime, os, shutil, asyncio, inspect, typing, io, textwrap, copy, operator
 from contextlib import redirect_stdout
-from fcts import  reloads
+from fctshl import reloads
 importlib.reload(reloads)
 
 
@@ -142,9 +141,7 @@ class AdminCog:
     @commands.check(check_admin)
     async def membercounter(self,ctx):
         """Recharge tout ces salons qui contiennent le nombre de membres, pour tout les serveurs"""
-        for x in self.bot.guilds:
-            await self.bot.cogs["ServerCog"].update_memberChannel(x)
-        await ctx.send(":ok_hand:")
+        await ctx.send("Impossible de faire ceci, la base de donnée est inaccessible")
 
     @main_msg.command(name="get_invites",aliases=['invite'])
     @commands.check(check_admin)
@@ -183,14 +180,7 @@ class AdminCog:
     @commands.check(check_admin)
     async def admin_sconfig_see(self,ctx,*,server):
         """Affiche les options d'un serveur"""
-        if server.isnumeric():
-            guild = discord.utils.get(self.bot.guilds,id=int(server))
-        else:
-            guild = discord.utils.get(self.bot.guilds,name=server)
-        if guild != None:
-            await self.bot.cogs["ServerCog"].send_see(guild,ctx.channel,None,ctx.message,None)
-        else:
-            await ctx.send("Serveur introuvable")
+        await ctx.send("Impossible d'afficher cette commande, la base de donnée est hors ligne :confused:")
 
     @main_msg.command(name="emergency")
     @commands.check(check_admin)
@@ -299,7 +289,6 @@ class AdminCog:
                 role = r
         owner_list = list()
         for guild in self.bot.guilds:
-            await self.print("guild "+guild.name)
             if len(guild.members)>9:
                 owner_list.append(guild.owner.id)
         for member in server.members:

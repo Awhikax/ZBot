@@ -56,7 +56,8 @@ cases={"no-user":"Impossible de trouver cet utilisateur",
 errors={"cooldown":"Vous êtes en cooldown pour cette commande. Veuillez attendre encore {} secondes...",
 "badarguments":"Oups, impossible de convertir le paramètre `{c[3]}` en type \"{c[1]}\" :confused:",
 "missingargument":"Oups, il manque l'argument \"{}\" {}",
-"membernotfound":"Impossible de trouver le membre `{}` :confused:"}
+"membernotfound":"Impossible de trouver le membre `{}` :confused:",
+"usernotfound":"Impossible de trouver l'utilisateur `{}` :confused:"}
 
 find={"user-0":"Nom : {}\nID : {}",
 "user-1":"Nom : {}\nID : {}\nServeurs : {}\nPremium ? {}",
@@ -105,7 +106,8 @@ Pour m'avoir aidé dans la création du bot, mon propriétaire et moi souhaitons
 
 Bonne journée !""",
 "docs":"Voici le lien vers la documentation du bot :",
-"stats":"""**Version du bot :** {} \n**Nombre de serveurs :** {} \n**Nombre de membres visibles :** {} \n**Version de Python :** {} \n**Version de la bibliothèque `discord.py` :** {} \n**Charge sur la mémoire vive :** {} GB \n**Charge sur le CPU :** {} % \n**Temps de latence de l'api :** {} ms"""}
+"stats-title":"**Statistiques du bot**",
+"stats":"""**Version du bot :** {} \n**Nombre de serveurs :** {} \n**Nombre de membres visibles :** {} (dont {} bots)\n**Version de Python :** {} \n**Version de la bibliothèque `discord.py` :** {} \n**Charge sur la mémoire vive :** {} GB \n**Charge sur le CPU :** {} % \n**Temps de latence de l'api :** {} ms"""}
 
 infos_2={"membercount-0":"Nombre de membres total",
 "membercount-1":"Nombre de bots",
@@ -127,7 +129,8 @@ keywords={"depuis":"depuis",
           "extreme":"extrême",
           "aucune":"aucune",
           "membres":"membres",
-          "subcmds":"sous-commandes"
+          "subcmds":"sous-commandes",
+          "ghost":"Fantôme"
           }
 
 kill={"list":["Oh toi, tu vas mourir !",

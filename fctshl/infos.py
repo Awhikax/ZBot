@@ -42,7 +42,7 @@ class InfosCog:
         """Check if a user is part of the ZBot team"""
         return await is_support_staff(ctx)
 
-    @commands.command(name="stats")
+    @commands.command(name="stats",enabled=False)
     @commands.cooldown(2,60,commands.BucketType.guild)
     async def stats(self,ctx):
         """Display some statistics about the bot"""
@@ -64,19 +64,16 @@ class InfosCog:
         #            continue
         #        len_users += 1
         #        users.append(m)
-        ignored_guilds = [int(x) for x in self.bot.cogs['UtilitiesCog'].config[0]['banned_guilds'].split(";") if len(x)>0]
-        ignored_guilds += self.bot.cogs['ReloadsCog'].ignored_guilds
+        ignored_guilds = self.bot.cogs['ReloadsCog'].ignored_guilds
         users = bots = 0
         len_servers = len([x for x in ctx.bot.guilds if x.id not in ignored_guilds])
         for user in ctx.bot.users:
             user_guilds = [x.id for x in ctx.bot.guilds if user in x.members]
             if len(set(ignored_guilds).intersection(user_guilds)) == len(user_guilds):
-                print(user)
                 continue
             if user.bot:
                 bots += 1
             users += 1
-        premium_count = await self.bot.cogs['UtilitiesCog'].get_number_premium()
         d = str(await self.translate(ctx.guild,"infos","stats")).format(bot_version,len_servers,users,bots,version,discord.__version__,round(py.memory_info()[0]/2.**30,3),psutil.cpu_percent(),round(r*1000,3))
         embed = discord.Embed(title=await self.translate(ctx.guild,"infos","stats-title"), colour=discord.Colour(0x63a718), timestamp=ctx.message.created_at,description=d)
         embed = await self.bot.cogs['UtilitiesCog'].create_footer(embed,ctx.author)
@@ -131,7 +128,6 @@ Available types: member, role, user, emoji, channel, guild, invite, category"""
         #lang = await self.bot.cogs["ServerCog"].conf_lang(ctx,'language','scret-desc')
         try:
             lang = await self.translate(ctx.guild.id,"current_lang","current")
-            find = self.utilities.find_everything
             if Type in ["guild","server"]:
                 await self.guild_info(ctx,lang)
                 return
@@ -142,13 +138,13 @@ Available types: member, role, user, emoji, channel, guild, invite, category"""
                     name = Type
                     Type = None
                     try:
-                        item = await find(ctx,name,Type=None)
-                    except:
+                        item = await self.bot.cogs["UtilitiesCog"].find_everything(ctx,name,Type=None)
+                    except Exception as e:
                         await ctx.send(str(await self.translate(ctx.guild.id,"modo","cant-find-user")).format(name))
                         return
             else:
                 try:
-                    item = await find(ctx,name,Type)
+                    item = await self.bot.cogs["UtilitiesCog"].find_everything(ctx,name,Type)
                 except:
                     await ctx.send(str(await self.translate(ctx.guild.id,"modo","cant-find-user")).format(name))
                     return
@@ -180,6 +176,7 @@ Available types: member, role, user, emoji, channel, guild, invite, category"""
 
     async def member_infos(self,ctx,item,lang):
         since = await self.translate(ctx.guild.id,"keywords","depuis")
+        yes = str(await self.translate(ctx.guild.id,"keywords","oui")).capitalize()
         if item.activity==None:
             m_activity = await self.translate(ctx.guild.id,"activity","rien")
         elif item.activity.type==discord.ActivityType.playing:
@@ -193,11 +190,11 @@ Available types: member, role, user, emoji, channel, guild, invite, category"""
         else:
             m_activity="Error"
         if item.bot:
-            botb = await self.translate(ctx.guild.id,"keywords","oui")
+            botb = yes
         else:
             botb = await self.translate(ctx.guild.id,"keywords","non")
         if item.permissions_in(ctx.channel).administrator:
-            admin = await self.translate(ctx.guild.id,"keywords","oui")
+            admin = yes
         else:
             admin = await self.translate(ctx.guild.id,"keywords","non")
         list_role = list()
@@ -220,6 +217,8 @@ Available types: member, role, user, emoji, channel, guild, invite, category"""
         embed.add_field(name=await self.translate(ctx.guild.id,"stats_infos","member-4"), value = str(await self.translate(ctx.guild.id,"keywords",str(item.status))).capitalize(),inline=True)
         embed.add_field(name=await self.translate(ctx.guild.id,"stats_infos","member-5"), value = m_activity.capitalize(),inline=True)
         embed.add_field(name=await self.translate(ctx.guild.id,"stats_infos","member-6"), value = admin.capitalize(),inline=True)
+        if item.id == 268113064639856640:
+            embed.add_field(name=await self.translate(ctx.guild.id,"keywords","ghost"), value = yes,inline=True)
         if len(list_role)>0:
             embed.add_field(name="Roles [{}]".format(len(list_role)), value = ", ".join(list_role), inline=True)
         else:
@@ -255,13 +254,14 @@ Available types: member, role, user, emoji, channel, guild, invite, category"""
 
 
     async def user_infos(self,ctx,item,lang):
+        yes = str(await self.translate(ctx.guild.id,"keywords","oui")).capitalize()
         since = await self.translate(ctx.guild.id,"keywords","depuis")
         if item.bot:
-            botb = await self.translate(ctx.guild.id,"keywords","oui")
+            botb = yes
         else:
             botb = await self.translate(ctx.guild.id,"keywords","non")
         if item in ctx.guild.members:
-            on_server = await self.translate(ctx.guild.id,"keywords","oui")
+            on_server = yes
         else:
             on_server = await self.translate(ctx.guild.id,"keywords","non")
         embed = discord.Embed(colour=default_color, timestamp=ctx.message.created_at)
@@ -274,6 +274,8 @@ Available types: member, role, user, emoji, channel, guild, invite, category"""
         embed.add_field(name=await self.translate(ctx.guild.id,"stats_infos","member-1"), value = "{} ({} {})".format(await self.timecog.date(item.created_at,lang=lang,year=True),since,await self.timecog.time_delta(item.created_at,datetime.datetime.now(),lang=lang,year=True,precision=0,hour=False)), inline=False)
         embed.add_field(name="Bot", value=botb.capitalize())
         embed.add_field(name=await self.translate(ctx.guild.id,"stats_infos","user-0"), value=on_server.capitalize())
+        if item.id == 268113064639856640:
+            embed.add_field(name=await self.translate(ctx.guild.id,"keywords","ghost"), value = yes,inline=True)
         await ctx.send(embed=embed)
 
     async def emoji_infos(self,ctx,item,lang):
@@ -453,7 +455,10 @@ Available types: member, role, user, emoji, channel, guild, invite, category"""
         if s == None:
             await ctx.send(await self.translate(ctx.guild,"find","guild-0"))
             return
-        await ctx.send(str(await self.translate(ctx.guild,"find","guild-1")).format(s.name,s.id,s.owner,s.owner.id))
+        if s.owner==None:
+            await ctx.send(str(await self.translate(ctx.guild,"find","guild-1")).format(s.name,s.id,s.owner,"0000"))
+        else:    
+            await ctx.send(str(await self.translate(ctx.guild,"find","guild-1")).format(s.name,s.id,s.owner,s.owner.id))
 
     @find_main.command(name='channel')
     async def find_channel(self,ctx,ID:int):

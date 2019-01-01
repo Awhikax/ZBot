@@ -55,7 +55,8 @@ cases={"no-user":"Unable to find this user :eyes:",
 errors={"cooldown":"You are on cooldown for this command :confused: Please wait {} mode seconds...",
 "badarguments":"Oops, unable to convert the `{c[3]}` parameter to \"{c[1]}\" type :confused:",
 "missingargument":"Oops, the argument \"{}\" is missing {}",
-"membernotfound":"Unable to find the member `{}` :confused:"}
+"membernotfound":"Unable to find the member `{}` :confused:",
+"usernotfound":"Unable to find the user `{}` :confused:"}
 
 find={"user-0":"name: {}\nID: {}",
 "user-1":"Name: {}\nID: {}\nServers: {}\nPremium ? {}",
@@ -104,7 +105,8 @@ For helping me in the creation of the bot, my owner and I would like to thank re
 
 Have a nice day!""",
 "docs":"Here is the link to the bot documentation:",
-"stats":"""**Bot version:** {} \n**Number of servers:** {} \n**Number of visible members:** {} \n**Python version :** {} \n**Version of the `discord.py` lib:** {} \n**Loading on the RAM:** {} GB \n**Loading on the CPU:** {} % \n**API latency time:** {} ms"""}
+"stats-title":"**Bot statistics**",
+"stats":"""**Bot version:** {} \n**Number of servers:** {} \n**Number of visible members:** {} ({} bots)\n**Python version :** {} \n**Version of the `discord.py` lib:** {} \n**Loading on the RAM:** {} GB \n**Loading on the CPU:** {} % \n**API latency time:** {} ms"""}
 
 infos_2={"membercount-0":"Total number of members",
 "membercount-1":"Number of bots",
@@ -126,7 +128,8 @@ keywords={"depuis":"since",
           "extreme":"extreme",
           "aucune":"none",
           "membres":"members",
-          "subcmds":"subcommands"
+          "subcmds":"subcommands",
+          "ghost":"Ghost"
           }
 
 logs={"slowmode-enabled":"Slowmode enabled in {channel} ({seconds}s)",

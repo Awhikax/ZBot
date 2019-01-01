@@ -7,7 +7,7 @@ t1=time.time()
 
 #Here we import some libs
 count = 0
-for m in ["timeout_decorator","mysql","discord","frmc_lib","requests","re","asyncio","feedparser","datetime","time","importlib","traceback","sys","logging","sympy","psutil"]:
+for m in ["timeout_decorator","mysql","discord","frmc_lib","requests","re","asyncio","feedparser","datetime","time","importlib","traceback","sys","logging","sympy","psutil","platform","subprocess"]:
     try:
         exec("import "+m)
         exec("del "+m)
@@ -18,22 +18,33 @@ if count>0:
     raise
 del count
 
-import discord, sys, traceback, asyncio, time, logging
-
+import discord, sys, traceback, asyncio, time, logging, os
+from signal import SIGTERM
+from platform   import system as system_name  # Returns the system/OS name
+from subprocess import call   as system_call  # Execute a shell command
 
 from discord.ext import commands
 
 def get_prefix(bot,msg):
-    try:
-        p = bot.cogs['UtilitiesCog'].find_prefix(msg.guild)
-    except:
-        p = '!'
-    if p == '':
-        p = '!'
-    return p
+    if database_online:
+        l = [bot.cogs['UtilitiesCog'].find_prefix(msg.guild)]
+    else:
+        l = ['!']
+    if msg.guild != None:
+        return l+[msg.guild.me.mention+" "]
+    else:
+        return l+[bot.user.mention+" "]
 
 client = commands.Bot(command_prefix=get_prefix,case_insensitive=True,status=discord.Status('online'))
 
+
+param = '-n' if system_name().lower()=='windows' else '-c'
+command = ['ping', param, "2",'-i',"0.3",'-q', "37.44.236.84"]
+r = system_call(command)
+database_online = r == 1 or r==0
+if not database_online:
+    print(r)
+    print("\nERROR: UNABLE TO PING THE DATABASE\n\n")
 
 initial_extensions = ['fcts.admin',
                       'fcts.utilities',
@@ -56,6 +67,15 @@ initial_extensions = ['fcts.admin',
                       'fcts.events'
   ]
 
+
+# Suppression du fichier debug.log s'il est trop volumineux
+if os.path.exists("debug.log"):
+    s = os.path.getsize('debug.log')/1.e9
+    if s>10:
+        print("Taille de debug.log supérieure à 10Gb ({}Gb)\n   -> Suppression des logs".format(s))
+        os.remove('debug.log')
+    del s
+
 #Seting-up logs
 logger = logging.getLogger('discord')
 logger.setLevel(logging.DEBUG)
@@ -64,19 +84,40 @@ handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(me
 logger.addHandler(handler)
 
 
-# Here we load our extensions(cogs) listed above in [initial_extensions].
-if __name__ == '__main__':
+def load_cogs():
+    """Here we load our extensions(cogs) listed above in [initial_extensions]."""
+    global database_online, client
     count = 0
     for extension in initial_extensions:
+        if not database_online:
+            extension = extension.replace('fcts','fctshl')
         try:
             client.load_extension(extension)
-        except Exception as e:
-            print(f'Failed to load extension {extension}', file=sys.stderr)
+        except:
+            print(f'\nFailed to load extension {extension}', file=sys.stderr)
             traceback.print_exc()
             count += 1
     if count >0:
-        raise Exception("{} modules not loaded".format(count))
-    del count
+        if not database_online:
+            raise Exception("\n{} modules not loaded".format(count))
+        else:
+            count = 0
+            database_online = False
+        for extension in initial_extensions:
+            try:
+                client.unload_extension(extension)
+            except Exception as e:
+                print("••••• ",e)
+            try:
+                client.load_extension(extension.replace('fcts','fctshl'))
+            except:
+                print(f'\nFailed to load extension {extension}', file=sys.stderr)
+                traceback.print_exc()
+                count += 1
+        if count >0:
+            raise Exception("\n{} modules not loaded".format(count))
+
+load_cogs()
 
 
 @client.check_once
@@ -103,12 +144,12 @@ async def on_ready():
     await utilities.print2("Prêt en "+str(t1+(time.time()-t2))+" sec")
     await utilities.print2('------')
     await asyncio.sleep(3)
-    if r=='1':
+    if not database_online:
+        await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening,name="for a signal"))
+    elif r=='1':
         await client.change_presence(activity=discord.Game(name="entrer !help"))
     elif r=='2':
         await client.change_presence(activity=discord.Game(name="SNAPSHOOT"))
-    elif r=='3':
-        await client.change_presence(activity=discord.Game(name="Gunivers !"))
     emb = client.cogs["EmbedCog"].Embed(desc="Bot **{} is launching** !".format(client.user.name),color=8311585).update_timestamp()
     await client.cogs["EmbedCog"].send([emb])
 
@@ -133,25 +174,35 @@ async def on_guild_remove(guild):
 async def on_message(msg):
     await client.cogs["Events"].on_new_message(msg)
 
-from fcts import tokens
-t1=time.time()-t1
-r=input("Quel bot activer ? (1 release, 2 snapshot) ")
-if r=='1':
-    token = tokens.get_token(486896267788812288)
-elif r=='2':
-    token = tokens.get_token(436835675304755200)
+
+async def sigterm_handler(bot):
+    print("SIGTERM received. Disconnecting...")
+    await bot.logout()
+
+# à mettre avant de lancer le bot
+asyncio.get_event_loop().add_signal_handler(SIGTERM, lambda: asyncio.ensure_future(sigterm_handler(client)))
+
+
+if database_online:
+    try:
+        from fcts import tokens
+    except:
+        database_online = False
+        t1=time.time()-t1
+if database_online:
+    r=input("Quel bot activer ? (1 release, 2 snapshot) ")
+    if r=='1':
+        token = tokens.get_token(486896267788812288)
+    elif r=='2':
+        token = tokens.get_token(436835675304755200)
+    else:
+        sys.exit()
+    if r in ['1','2']:
+        r2=input("Lancement de la boucle rss ? (o/n) ")
+        if r2=='o':
+            client.loop.create_task(client.cogs["RssCog"].loop())
 else:
-    sys.exit()
-if r in ['1','2']:
-    r2=input("Lancement de la boucle rss ? (o/n) ")
-    if r2=='o':
-        client.loop.create_task(client.cogs["RssCog"].loop())
-    #r3=input("Lancement de la boucle hunting ? (o/n) ")
-    #if r3=='o':
-        #client.loop.create_task(hunter.loop(client))
-    #r4=input("Lancement de la boucle backup ? (o/n) ")
-    #if r4=='o':
-        #client.loop.create_task(admin.backup_loop(client))
+    token = input("Token?\n> ")
 t2=time.time()
 
 
