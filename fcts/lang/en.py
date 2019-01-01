@@ -52,7 +52,7 @@ cases={"no-user":"Unable to find this user :eyes:",
     "search-1":"**User:** {U}\n**Guild:** {G}\n**Type:** {T}\n**Moderator:** {M}\n**Date:** {D}\n**Reason:** *{R}*",
     'title-search':'Case #{}'}
 
-errors={"cooldown":"You are on cooldown for this command :confused: Please wait {} mode seconds...",
+errors={"cooldown":"You are on cooldown for this command :confused: Please wait {} more seconds...",
 "badarguments":"Oops, unable to convert the `{c[3]}` parameter to \"{c[1]}\" type :confused:",
 "missingargument":"Oops, the argument \"{}\" is missing {}",
 "membernotfound":"Unable to find the member `{}` :confused:",
@@ -106,7 +106,7 @@ For helping me in the creation of the bot, my owner and I would like to thank re
 Have a nice day!""",
 "docs":"Here is the link to the bot documentation:",
 "stats-title":"**Bot statistics**",
-"stats":"""**Bot version:** {} \n**Number of servers:** {} \n**Number of visible members:** {} ({} bots)\n**Python version :** {} \n**Version of the `discord.py` lib:** {} \n**Loading on the RAM:** {} GB \n**Loading on the CPU:** {} % \n**API latency time:** {} ms"""}
+"stats":"""**Bot version:** {} \n**Number of servers:** {} \n**Number of visible members:** {} \n**Python version :** {} \n**Version of the `discord.py` lib:** {} \n**Loading on the RAM:** {} GB \n**Loading on the CPU:** {} % \n**API latency time:** {} ms"""}
 
 infos_2={"membercount-0":"Total number of members",
 "membercount-1":"Number of bots",
@@ -132,6 +132,32 @@ keywords={"depuis":"since",
           "ghost":"Ghost"
           }
 
+kill={"list":["Oh you, you gonna to die!",
+          "***BOUM !*** {1} fell into a trap posed by {0} !",
+          "Luckily, the ground has cushioned the fall of {1} !",
+          "{0} shouted \"Fus Roh Dah\" while {1} was next to a cliff...",
+          "No, you can't stop bullets with your hands {1} :shrug:",
+          "You have to be __in__ the elevator {1}, not __above__...",
+          "{1} stayed too close to the speakers during a heavy metal concert.",
+          "Staying within 10 meters of an atomic explosion wasn't a good idea {1}...",
+          "No ! Double jumps are not possible {1} !",
+          "{1} imitated Icare... splash.",
+          "It's nice to have a portal gun {1}, but don't open portals above spades...",
+          "{1} died. Peace to his soul... :sneezing_face:",
+          "{0} killed {1}",
+          "{1} was shot by {0}",
+          "Bye {1} ! :ghost:",
+          "{1} saw a flying anvil fall... on his head :head_bandage:",
+          "{1} commit suicide after {0} has cut his connection",
+          "Caution {1} ! Fire burns :fire:",
+          "{1} fought zombies without shovel",
+          "{1} tried to hug a creeper",
+          "{1}, lava baths are hot, but lava burns...",
+          "{1} tried a rocket jump",
+          "You shouldn't listen to the pretty melody of the Lullaby, {1} :musical_note:",
+          "{2}.exe *has stopped working*"
+          ]}
+
 logs={"slowmode-enabled":"Slowmode enabled in {channel} ({seconds}s)",
 "slowmode-disabled":"Slowmode disabled in {channel}",
 "clear":"{number} deleted messages in {channel}",
@@ -142,7 +168,6 @@ logs={"slowmode-enabled":"Slowmode enabled in {channel} ({seconds}s)",
 "mute-off":"{member} is no more muted",
 "softban":"{member} has been 'softbanned' (reason: {reason} | case #{case})",
 "warn":"{member} has been warned: {reason} (case #{case})"}
-
 
 mc={"contact-mail":"If you notice an error in the information provided, please contact me personally, or report the error directly [on the site](https://fr-minecraft.net).",
     "serv-title":"Server information {}",
@@ -155,7 +180,6 @@ mc={"contact-mail":"If you notice an error in the information provided, please c
     "no-ping":"Error: Unable to ping this server",
     "success-add":"A message with server details {} has been added to the channel {} !",
     "cant-embed":"Cannot send embed. Please make sure the \"Embed links\" permission is enabled.",
-
     "names":("Block","Entity","Item","Command","Advancement"),
     "entity-help":"This command allows you to obtain information about any Minecraft entity. You can give its full or partial name, in French or English, or even its identifier. Just enter `!mc entity <name>`",
     "block-help":"This command allows you to obtain information on any Minecraft block. You can give its full or partial name, in French or English, or even its identifier. Just enter `!mc block <name>`",
@@ -266,7 +290,7 @@ Link : {link}""",
 "tw-default-flow":"{logo}  | New tweet of {author} ! ({date})\n\n{title}\n\nLink : {link}\n\n{mentions}",
 "web-default-flow":"{logo}  | New post on {author} ({date}) :\n    {title}\n\n{link}\n\n{mentions}",
 "list":"*Type the number of the flow to modify*\n\n**Link - Type - Channel - Mentions**\n",
-"list2":"*Type the number of the flow to deleter*\n\n**Link - Type - Channel**\n",
+"list2":"*Type the number of the flow to delete*\n\n**Link - Type - Channel**\n",
 'tw':'Twitter',
 'yt':'YouTube',
 'web':'Web',
